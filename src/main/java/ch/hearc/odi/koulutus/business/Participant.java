@@ -1,6 +1,8 @@
 package ch.hearc.odi.koulutus.business;
 
 
+import ch.hearc.odi.koulutus.exception.ParticipantException;
+import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -81,4 +83,32 @@ public class Participant {
     return courses;
   }
 
+  public void addCourses(Course course) throws ProgramException {
+    courses.add(course);
+  }
+
+  public Course getCourses(Integer id) throws ParticipantException {
+    for (Course course : this.courses) {
+      if (course.getId() == (id.longValue())) {
+        return course;
+      }
+    }
+    throw new ParticipantException("Course not found: " + id);
+  }
+
+  public void removeFromCourse(Integer idCourse) throws ProgramException {
+    this.courses.remove(this.getIndex(idCourse));
+  }
+
+  public int getIndex(Integer id) throws ProgramException {
+    int i;
+    for (i = 0; i < courses.size(); i++) {
+      Course course = courses.get(i);
+      if (course.getId() == (id.longValue())) {
+        return i;
+      }
+    }
+    throw new ProgramException("Index not found");
+  }
+  
 }
