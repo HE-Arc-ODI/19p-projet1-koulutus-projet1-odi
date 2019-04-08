@@ -69,6 +69,22 @@ public class Course implements Serializable {
   public void setSessions(List<Session> sessions) {
     this.sessions = sessions;
   }
+  public void addSessions(Session session) throws ProgramException {
+    sessions.add(session);
+  }
+  public void removeSession(Integer idSession) throws ProgramException {
+    this.sessions.remove(this.getIndex(idSession));
+  }
+  public int getIndex(Integer id) throws ProgramException {
+    int i;
+    for (i = 0; i < sessions.size(); i++) {
+      Session session = sessions.get(i);
+      if (session.getId() == (id.longValue())) {
+        return i;
+      }
+    }
+    throw new ProgramException("Index not found");
+  }
 
   public void setId(Integer id) {
     this.id = id;
