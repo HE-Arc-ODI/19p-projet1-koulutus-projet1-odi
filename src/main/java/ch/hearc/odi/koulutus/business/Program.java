@@ -90,7 +90,7 @@ public class Program implements Serializable {
         }
         throw new ProgramException("Index not found");
     }
-    public void deleteCourse(Integer id) throws ProgramException {
+    public void removeCourse(Integer id) throws ProgramException {
         this.courses.remove(getIndex(id));
     }
 }
