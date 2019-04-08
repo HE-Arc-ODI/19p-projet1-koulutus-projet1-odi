@@ -90,6 +90,9 @@ public class Course implements Serializable {
     return maxNumberOfParticipants;
   }
 
+  public void setMaxNumberOfParticipants(Integer maxNumberOfParticipants) {
+    this.maxNumberOfParticipants = maxNumberOfParticipants;
+  }
 
 
 }
