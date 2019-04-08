@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "Participant")
@@ -37,6 +40,13 @@ public class Participant {
 
   public void setCourses(List<Course> courses) {
     this.courses = courses;
+  }
+
+  @Id
+  @GeneratedValue(generator = "increment")
+  @GenericGenerator(name = "increment", strategy = "increment")
+  public Integer getId() {
+    return id;
   }
 
 }
