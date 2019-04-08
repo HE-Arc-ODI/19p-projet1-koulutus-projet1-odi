@@ -61,4 +61,10 @@ public class Course implements Serializable {
   public List<Session> getSessions() {
     return this.getSessions();
   }
+
+  public void setSessions(List<Session> sessions) {
+    this.sessions = sessions;
+  }
+  
+
 }
