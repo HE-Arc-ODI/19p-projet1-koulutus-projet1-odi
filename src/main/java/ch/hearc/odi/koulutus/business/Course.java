@@ -43,4 +43,10 @@ public class Course implements Serializable {
     this.year = year;
     this.maxNumberOfParticipants = maxNumberOfParticipants;
   }
+
+  public Course(Integer id, Integer quarter, Integer year, Integer maxNumberOfParticipants) {
+
+    this(quarter, year, maxNumberOfParticipants);
+    this.id = id;
+  }
 }
