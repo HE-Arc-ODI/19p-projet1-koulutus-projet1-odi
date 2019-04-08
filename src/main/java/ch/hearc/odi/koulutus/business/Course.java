@@ -1,5 +1,6 @@
 package ch.hearc.odi.koulutus.business;
 
+import ch.hearc.odi.koulutus.business.Course.status;
 import ch.hearc.odi.koulutus.exception.ParticipantException;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.io.Serializable;
@@ -37,6 +38,7 @@ public class Course implements Serializable {
 
   public Course() {
     sessions = new ArrayList<>();
+    status status = Course.status.OPEN;
   }
 
   public Course(Integer quarter, Integer year, Integer maxNumberOfParticipants) {
@@ -44,6 +46,7 @@ public class Course implements Serializable {
     this.quarter = quarter;
     this.year = year;
     this.maxNumberOfParticipants = maxNumberOfParticipants;
+
   }
 
   public Course(Integer id, Integer quarter, Integer year, Integer maxNumberOfParticipants) {
