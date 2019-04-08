@@ -1,6 +1,7 @@
 package ch.hearc.odi.koulutus.business;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,4 +32,7 @@ public class Course implements Serializable {
     return id;
   }
 
+  public Course() {
+    sessions = new ArrayList<>();
+  }
 }
