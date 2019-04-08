@@ -69,5 +69,9 @@ public class Participant {
     this.lastName = lastName;
   }
 
+  public String getBirthdate() {
+    return birthdate;
+  }
+
 
 }
