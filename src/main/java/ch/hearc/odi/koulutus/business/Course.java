@@ -70,4 +70,23 @@ public class Course implements Serializable {
     this.id = id;
   }
 
+  public Integer getQuarter() {
+    return quarter;
+  }
+
+  public void setQuarter(Integer quarter) {
+    this.quarter = quarter;
+  }
+
+  public Integer getYear() {
+    return year;
+  }
+
+  public void setYear(Integer year) {
+    this.year = year;
+  }
+
+
+
+
 }
