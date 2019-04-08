@@ -1,6 +1,7 @@
 package ch.hearc.odi.koulutus.business;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -17,4 +18,9 @@ public class Participant {
   private String lastName;
   private String birthdate;
   private List<Course> courses;
+
+  public Participant() {
+    courses = new ArrayList<>();
+  }
+  
 }
