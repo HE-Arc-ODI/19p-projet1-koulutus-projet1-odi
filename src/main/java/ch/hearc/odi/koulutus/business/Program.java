@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.ws.rs.ProcessingException;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,7 +24,7 @@ public class Program implements Serializable {
     private List<Course> courses;
 
     public Program(){
-
+        this.courses = new ArrayList<>();
     }
 
     @Id
