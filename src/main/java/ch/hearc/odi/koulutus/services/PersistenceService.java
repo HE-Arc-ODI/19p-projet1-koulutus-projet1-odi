@@ -26,16 +26,7 @@ public class PersistenceService {
     super.finalize();
   }
 
-  public Pojo createAndPersistAPojo(String myProperty){
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    entityManager.getTransaction().begin();
-    Pojo pojo = new Pojo();
-    pojo.setSomeProperty(myProperty);
-    entityManager.persist(pojo);
-    entityManager.getTransaction().commit();
-    entityManager.close();
-    return pojo;
-  }
+ 
 
 }
 
