@@ -1,6 +1,10 @@
 package ch.hearc.odi.koulutus.business;
 
+import ch.hearc.odi.koulutus.exception.ParticipantException;
+import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -93,6 +97,9 @@ public class Course implements Serializable {
   public void setMaxNumberOfParticipants(Integer maxNumberOfParticipants) {
     this.maxNumberOfParticipants = maxNumberOfParticipants;
   }
+
+
+
 
 
 }
