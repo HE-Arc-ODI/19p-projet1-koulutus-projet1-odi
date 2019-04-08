@@ -77,5 +77,10 @@ public class Participant {
     this.birthdate = birthdate;
   }
 
+  public List<Course> courses() {
+    return courses;
+  }
+
+
 
 }
