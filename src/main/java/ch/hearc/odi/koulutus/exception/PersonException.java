@@ -4,9 +4,9 @@
 
 package ch.hearc.odi.koulutus.exception;
 
-public class PersonException extends Exception {
+public class Participant extends Exception {
 
-  public PersonException(String message) {
+  public ParticipantException(String message) {
     super(message);
   }
 }
