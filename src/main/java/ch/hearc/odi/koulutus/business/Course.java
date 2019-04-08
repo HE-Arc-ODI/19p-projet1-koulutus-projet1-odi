@@ -2,6 +2,7 @@ package ch.hearc.odi.koulutus.business;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,5 +35,12 @@ public class Course implements Serializable {
 
   public Course() {
     sessions = new ArrayList<>();
+  }
+
+  public Course(Integer quarter, Integer year, Integer maxNumberOfParticipants) {
+    this();
+    this.quarter = quarter;
+    this.year = year;
+    this.maxNumberOfParticipants = maxNumberOfParticipants;
   }
 }
