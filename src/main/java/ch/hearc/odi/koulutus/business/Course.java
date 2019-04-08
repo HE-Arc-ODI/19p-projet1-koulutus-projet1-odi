@@ -1,6 +1,7 @@
 package ch.hearc.odi.koulutus.business;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,7 +14,15 @@ import org.hibernate.annotations.GenericGenerator;
 @XmlRootElement(name = "Course")
 public class Course implements Serializable {
   private Integer id;
-
+  private Integer quarter;
+  private Integer year;
+  private Integer maxNumberOfParticipants;
+  enum status {
+    OPEN,
+    CONFIRMED,
+    CANCELLED
+  }
+  private List<Session> sessions;
 
   @Id
   @GeneratedValue(generator = "increment")
@@ -21,4 +30,5 @@ public class Course implements Serializable {
   public Integer getId() {
     return id;
   }
+
 }
