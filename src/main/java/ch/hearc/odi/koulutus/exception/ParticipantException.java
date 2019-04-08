@@ -4,9 +4,9 @@
 
 package ch.hearc.odi.koulutus.exception;
 
-public class MarathonException extends Exception {
+public class ParticipantException extends Exception {
 
-  public MarathonException(String message) {
+  public ParticipantException(String message) {
     super(message);
   }
 }
