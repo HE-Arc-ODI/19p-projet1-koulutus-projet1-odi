@@ -26,12 +26,6 @@ public class Course implements Serializable {
   }
   private List<Session> sessions;
 
-  @Id
-  @GeneratedValue(generator = "increment")
-  @GenericGenerator(name = "increment", strategy = "increment")
-  public Integer getId() {
-    return id;
-  }
 
   public Course() {
     sessions = new ArrayList<>();
@@ -49,4 +43,12 @@ public class Course implements Serializable {
     this(quarter, year, maxNumberOfParticipants);
     this.id = id;
   }
+
+  @Id
+  @GeneratedValue(generator = "increment")
+  @GenericGenerator(name = "increment", strategy = "increment")
+  public Integer getId() {
+    return id;
+  }
+
 }
