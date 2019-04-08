@@ -95,4 +95,19 @@ public class Participant {
     }
     throw new ParticipantException("Course not found: " + id);
   }
+
+  public void removeFromCourse(Integer idCourse) throws ProgramException {
+    this.courses.remove(this.getIndex(idCourse));
+  }
+
+  public int getIndex(Integer id) throws ProgramException {
+    int i;
+    for (i = 0; i < courses.size(); i++) {
+      Course course = courses.get(i);
+      if (course.getId() == (id.longValue())) {
+        return i;
+      }
+    }
+    throw new ProgramException("Index not found");
+  }
 }
