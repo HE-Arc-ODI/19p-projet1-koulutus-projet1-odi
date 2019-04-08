@@ -86,6 +86,9 @@ public class Course implements Serializable {
     this.year = year;
   }
 
+  public Integer getMaxNumberOfParticipants() {
+    return maxNumberOfParticipants;
+  }
 
 
 
