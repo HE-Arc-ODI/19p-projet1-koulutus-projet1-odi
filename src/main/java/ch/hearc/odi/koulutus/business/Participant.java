@@ -81,6 +81,4 @@ public class Participant {
     return courses;
   }
 
-
-
 }
