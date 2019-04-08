@@ -65,6 +65,9 @@ public class Course implements Serializable {
   public void setSessions(List<Session> sessions) {
     this.sessions = sessions;
   }
-  
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
 }
