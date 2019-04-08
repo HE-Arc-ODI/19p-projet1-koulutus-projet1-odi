@@ -22,5 +22,11 @@ public class Participant {
   public Participant() {
     courses = new ArrayList<>();
   }
-  
+
+  public Participant(String firstName, String lastName, String birthdate) {
+    this();
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.birthdate = birthdate;
+  }
 }
