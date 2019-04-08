@@ -34,4 +34,9 @@ public class Participant {
     this(firstName, lastName, birthdate);
     this.id = id;
   }
+
+  public void setCourses(List<Course> courses) {
+    this.courses = courses;
+  }
+
 }
