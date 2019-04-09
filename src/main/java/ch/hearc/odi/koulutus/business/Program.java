@@ -2,6 +2,7 @@ package ch.hearc.odi.koulutus.business;
 
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.ArrayList;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -21,6 +22,10 @@ public class Program implements Serializable {
     private String field;
     private Integer price;
     private List<Course> courses;
+
+    public Program() {
+        courses = new ArrayList<>();
+    }
 
     public Program(String name, String richDescription, String field, Integer price){
 
