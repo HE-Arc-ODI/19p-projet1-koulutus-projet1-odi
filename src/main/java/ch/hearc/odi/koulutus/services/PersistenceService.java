@@ -61,10 +61,10 @@ public class PersistenceService {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = new Program(name, richDescription, field, price);
-    entityManager.persist(marathon);
+    entityManager.persist(program);
     entityManager.getTransaction().commit();
     entityManager.close();
-    return marathon;
+    return program;
   }
   @Override
   public void finalize() throws Throwable {
