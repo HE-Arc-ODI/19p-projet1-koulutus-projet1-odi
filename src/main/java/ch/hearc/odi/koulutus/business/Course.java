@@ -36,7 +36,8 @@ public class Course implements Serializable {
   private List<Session> sessions;
 
 
-  public Course() {
+  public Course(Integer quarter, Integer year, Integer maxNumberOfParticipants,
+      Enum status) {
     sessions = new ArrayList<>();
     status status = Course.status.OPEN;
   }
