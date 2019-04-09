@@ -34,7 +34,10 @@ public class Program implements Serializable {
         this.field = field;
         this.price = price;
     }
-    
+    public Program(Integer id, String name, String richDescription, String field, Integer price) {
+        this(name, richDescription,field,price);
+        this.id = id;
+    }
 
     @Id
     @GeneratedValue(generator = "increment")
