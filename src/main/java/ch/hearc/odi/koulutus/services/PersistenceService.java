@@ -5,12 +5,16 @@
 package ch.hearc.odi.koulutus.services;
 
 
+import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.exception.ProgramException;
+import com.sun.tools.sjavac.ProblemException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 public class PersistenceService {
 
@@ -65,6 +69,28 @@ public class PersistenceService {
     entityManager.getTransaction().commit();
     entityManager.close();
     return program;
+  }
+
+  /**
+   * Return all existing courses for a given program id
+   *    *
+   * @return a list
+   */
+  public ArrayList<Course> getCoursesByProgramId(Integer programId) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    TypedQuery<Course> query = entityManager
+        .createQuery("SELECT c from Course c where c.program.id = :programId", Course.class);
+
+    List<Course> courses = query.setParameter("programId", programId).getResultList();
+
+    if (courses == null) {
+      throw new ProgramException("Program " + programId + " was not found");
+    }
+    entityManager.getTransaction().commit();
+    entityManager.close();
+
+    return (ArrayList<Course>) courses;
   }
   @Override
   public void finalize() throws Throwable {
