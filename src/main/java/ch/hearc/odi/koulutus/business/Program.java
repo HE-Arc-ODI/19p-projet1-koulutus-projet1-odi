@@ -39,6 +39,16 @@ public class Program implements Serializable {
         this.id = id;
     }
 
+    public Program(Program p, Course c) {
+        id = p.getId();
+        name = p.getName();
+        richDescription = p.getRichDescription();
+        field = p.getField();
+        price = p.getPrice();
+        courses = new ArrayList<>();
+        courses.add(c);
+    }
+
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
