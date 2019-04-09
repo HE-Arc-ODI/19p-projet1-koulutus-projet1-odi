@@ -28,8 +28,13 @@ public class Program implements Serializable {
     }
 
     public Program(String name, String richDescription, String field, Integer price){
-
+        this();
+        this.name = name;
+        this.richDescription = richDescription;
+        this.field = field;
+        this.price = price;
     }
+    
 
     @Id
     @GeneratedValue(generator = "increment")
