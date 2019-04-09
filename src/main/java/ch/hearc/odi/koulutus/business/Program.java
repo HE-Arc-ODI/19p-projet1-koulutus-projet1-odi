@@ -22,7 +22,7 @@ public class Program implements Serializable {
     private Integer price;
     private List<Course> courses;
 
-    public Program(){
+    public Program(String name, String richDescription, String field, Integer price){
 
     }
 
