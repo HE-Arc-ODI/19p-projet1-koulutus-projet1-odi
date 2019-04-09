@@ -51,6 +51,21 @@ public class PersistenceService {
     entityManager.close();
     return program;
   }
+
+  /**
+   * Create a new Program and persist
+   *
+   * @return the program object created
+   */
+  public Program createAndPersistProgram(String name, String richDescription, String field, Integer price) {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = new Program(name, richDescription, field, price);
+    entityManager.persist(marathon);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    return marathon;
+  }
   @Override
   public void finalize() throws Throwable {
     entityManagerFactory.close();
