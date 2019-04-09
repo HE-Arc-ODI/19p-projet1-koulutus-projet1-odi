@@ -37,6 +37,20 @@ public class PersistenceService {
     entityManager.close();
     return (ArrayList<Program>) programs;
   }
+
+  /**
+   * Return program by ID
+   *
+   * @return a program
+   */
+  public Program getProgramById(Integer programId) {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = entityManager.find(Program.class, programId);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    return program;
+  }
   @Override
   public void finalize() throws Throwable {
     entityManagerFactory.close();
