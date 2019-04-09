@@ -92,6 +92,34 @@ public class PersistenceService {
 
     return (ArrayList<Course>) courses;
   }
+
+  /**
+   * Return course by ID and program id
+   *
+   * @return a course
+   */
+  public Course getCourseByIdProgramId(Integer programId, Integer courseId)
+      throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+
+    TypedQuery<Course> query = entityManager.createQuery(
+        "SELECT c from Course c where c.program.id = :programId and c.id = :courseId",
+        Course.class);
+
+    Course courses = query.setParameter("programId", programId)
+        .setParameter("programId", courseId)
+        .getSingleResult();
+
+    if (courses == null) {
+      throw new ProgramException("Program or course not found");
+    }
+
+    entityManager.getTransaction().commit();
+    entityManager.close();
+
+    return courses;
+  }
   @Override
   public void finalize() throws Throwable {
     entityManagerFactory.close();
