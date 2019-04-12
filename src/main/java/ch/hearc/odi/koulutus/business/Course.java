@@ -39,11 +39,11 @@ public class Course implements Serializable {
   public Course(Integer quarter, Integer year, Integer maxNumberOfParticipants,
       Enum status) {
     sessions = new ArrayList<>();
-    status status = Course.status.OPEN;
+    status  = Course.status.OPEN;
   }
 
   public Course(Integer quarter, Integer year, Integer maxNumberOfParticipants) {
-    this();
+    //this();
     this.quarter = quarter;
     this.year = year;
     this.maxNumberOfParticipants = maxNumberOfParticipants;

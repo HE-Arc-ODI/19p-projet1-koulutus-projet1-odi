@@ -9,7 +9,6 @@ import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Program;
 import ch.hearc.odi.koulutus.exception.ProgramException;
-import com.sun.tools.sjavac.ProblemException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
