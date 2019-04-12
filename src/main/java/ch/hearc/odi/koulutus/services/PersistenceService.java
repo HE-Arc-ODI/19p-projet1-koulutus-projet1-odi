@@ -10,6 +10,7 @@ import ch.hearc.odi.koulutus.business.Program;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import com.sun.tools.sjavac.ProblemException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -61,7 +62,8 @@ public class PersistenceService {
    *
    * @return the program object created
    */
-  public Program createAndPersistProgram(String name, String richDescription, String field, Integer price) {
+  public Program createAndPersistProgram(String name, String richDescription, String field,
+      Integer price) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = new Program(name, richDescription, field, price);
@@ -72,8 +74,8 @@ public class PersistenceService {
   }
 
   /**
-   * Return all existing courses for a given program id
-   *    *
+   * Return all existing courses for a given program id *
+   *
    * @return a list
    */
   public ArrayList<Course> getCoursesByProgramId(Integer programId) throws ProgramException {
@@ -120,6 +122,32 @@ public class PersistenceService {
 
     return courses;
   }
+
+  /**
+   * Create a new Course and persist
+   *
+   * @return the course object created
+   */
+  public Course createAndPersistCourse(Integer programId, Integer quarter, Integer year,
+      Integer maxNumberOfParticipants, Enum status) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Course courses = new Course(quarter, year, maxNumberOfParticipants, status);
+    Program program = getProgramById(programId);
+
+    if (program != null) {
+      program.addCourse(courses);
+      entityManager.persist(courses);
+      entityManager.getTransaction().commit();
+      entityManager.close();
+    } else {
+      throw new ProgramException("Program " + programId + " was not found");
+    }
+
+    return courses;
+  }
+
+
   @Override
   public void finalize() throws Throwable {
     entityManagerFactory.close();
