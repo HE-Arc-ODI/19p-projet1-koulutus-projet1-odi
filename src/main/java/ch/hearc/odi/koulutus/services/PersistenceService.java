@@ -6,6 +6,7 @@ package ch.hearc.odi.koulutus.services;
 
 
 import ch.hearc.odi.koulutus.business.Course;
+import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Program;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import com.sun.tools.sjavac.ProblemException;
@@ -147,7 +148,22 @@ public class PersistenceService {
     return courses;
   }
 
+  /**
+   * Return all existing participants
+   *
+   * @return a list
+   */
+  public ArrayList<Participant> getParticipant() {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    List<Participant> participant = entityManager.createQuery("from Participant", Participant.class)
+        .getResultList();
 
+    entityManager.getTransaction().commit();
+    entityManager.close();
+
+    return (ArrayList<Participant>) participant;
+  }
   @Override
   public void finalize() throws Throwable {
     entityManagerFactory.close();
