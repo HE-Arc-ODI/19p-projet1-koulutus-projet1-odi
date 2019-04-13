@@ -1,5 +1,6 @@
 package ch.hearc.odi.koulutus.business;
 
+import ch.hearc.odi.koulutus.business.Course.status;
 import ch.hearc.odi.koulutus.exception.ParticipantException;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.io.Serializable;
@@ -35,15 +36,18 @@ public class Course implements Serializable {
   private List<Session> sessions;
 
 
-  public Course() {
+  public Course(Integer quarter, Integer year, Integer maxNumberOfParticipants,
+      Enum status) {
     sessions = new ArrayList<>();
+    status  = Course.status.OPEN;
   }
 
   public Course(Integer quarter, Integer year, Integer maxNumberOfParticipants) {
-    this();
+    //this();
     this.quarter = quarter;
     this.year = year;
     this.maxNumberOfParticipants = maxNumberOfParticipants;
+
   }
 
   public Course(Integer id, Integer quarter, Integer year, Integer maxNumberOfParticipants) {
@@ -68,6 +72,22 @@ public class Course implements Serializable {
 
   public void setSessions(List<Session> sessions) {
     this.sessions = sessions;
+  }
+  public void addSessions(Session session) throws ProgramException {
+    sessions.add(session);
+  }
+  public void removeSession(Integer idSession) throws ProgramException {
+    this.sessions.remove(this.getIndex(idSession));
+  }
+  public int getIndex(Integer id) throws ProgramException {
+    int i;
+    for (i = 0; i < sessions.size(); i++) {
+      Session session = sessions.get(i);
+      if (session.getId() == (id.longValue())) {
+        return i;
+      }
+    }
+    throw new ProgramException("Index not found");
   }
 
   public void setId(Integer id) {
