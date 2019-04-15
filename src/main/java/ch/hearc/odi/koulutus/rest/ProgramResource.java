@@ -1,12 +1,15 @@
 package ch.hearc.odi.koulutus.rest;
 
 
+import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.exception.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -35,6 +38,22 @@ public class ProgramResource {
   @Path("{programId}")
   public Program getProgramById(@PathParam("programId") Integer programId) {
     return persistenceService.getProgramById(programId);
+  }
+
+   /*
+  GET :  Course BY ID FROM Program BY ID
+ */
+
+  @GET
+  @Path("{programId}/course/{courseId}")
+  public Course courseByIdFromGivenProgram(@PathParam("programId") Integer programId,
+      @PathParam("courseId") Integer courseId) {
+    try {
+      return persistenceService.getCourseByIdProgramId(programId, courseId);
+    } catch (ProgramException e) {
+      e.printStackTrace();
+      throw new NotFoundException("the program does not exist");
+    }
   }
 
 
