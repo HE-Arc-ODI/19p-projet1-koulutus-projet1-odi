@@ -5,11 +5,15 @@ import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Program;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
+import java.text.ParseException;
 import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -54,6 +58,17 @@ public class ProgramResource {
       e.printStackTrace();
       throw new NotFoundException("the program does not exist");
     }
+  }
+
+  /*
+POST : ADD program
+
+ */
+  @POST
+  public Program programPost(@FormParam("name") String name, @FormParam("richDesscription") String richDesscription,
+      @FormParam("field") String field, @FormParam("price") Integer price)
+      throws ParseException {
+    return persistenceService.createAndPersistProgram(name, richDesscription,field,price);
   }
 
 
