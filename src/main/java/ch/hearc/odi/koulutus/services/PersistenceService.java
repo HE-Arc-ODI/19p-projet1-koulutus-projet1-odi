@@ -8,6 +8,7 @@ package ch.hearc.odi.koulutus.services;
 import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.business.Session;
 import ch.hearc.odi.koulutus.exception.ParticipantException;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.util.ArrayList;
@@ -188,7 +189,7 @@ public class PersistenceService {
    * @param participantid : specifies which customer to return
    * @return an objet customer
    */
-  public Participant getCustomerByID(Integer participantid) throws ParticipantException {
+  public Participant getParticipantByID(Integer participantid) throws ParticipantException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     Participant actualParticipant = entityManager.find(Participant.class, participantid);
     if (actualParticipant != null) {
@@ -197,6 +198,32 @@ public class PersistenceService {
       throw new ParticipantException("Participant with id " + participantid + " not found");
     }
   }
+
+/**
+ * Create a new Session and persist
+ *
+ * @return the session object created
+ */
+public Session createAndPersistSession(Integer programId, Integer courseId, Date startDateTime, Date endDateTime,
+                                       Double price, String room) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Course courseFromBD = this.getCourseByIdProgramId(programId, courseId);
+
+    Session session = new Session(startDateTime, endDateTime, price, room);
+
+    if (courseFromBD != null){
+        courseFromBD.addSessions(session);
+        entityManager.persist(session);
+        entityManager.merge(courseFromBD);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }else{
+        throw new ProgramException("Program or course not found");
+    }
+
+    return session;
+}
 
   @Override
   public void finalize() throws Throwable {
