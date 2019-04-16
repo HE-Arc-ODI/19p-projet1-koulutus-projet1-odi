@@ -14,10 +14,8 @@ import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
+import javax.servlet.http.Part;
 
 public class PersistenceService {
 
@@ -223,6 +221,24 @@ public Session createAndPersistSession(Integer programId, Integer courseId, Date
     }
 
     return session;
+}
+
+public void registerParticipantToCourse(Integer programId, Integer courseId, Integer participantId) throws ProgramException, ParticipantException {
+  EntityManager entityManager = entityManagerFactory.createEntityManager();
+  entityManager.getTransaction().begin();
+
+  Course courseFromDB = this.getCourseByIdProgramId(programId, courseId);
+  Participant participantFromDB = this.getParticipantByID(participantId);
+
+  if (courseFromDB != null && participantFromDB != null) {
+    participantFromDB.addCourses(courseFromDB);
+    entityManager.merge(participantFromDB);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+  } else {
+    throw new ProgramException("Course or participant not found");
+  }
+
 }
 
   @Override
