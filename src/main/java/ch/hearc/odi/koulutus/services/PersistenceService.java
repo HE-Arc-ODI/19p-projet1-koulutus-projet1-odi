@@ -8,6 +8,7 @@ package ch.hearc.odi.koulutus.services;
 import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.exception.ParticipantException;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -163,6 +164,40 @@ public class PersistenceService {
 
     return (ArrayList<Participant>) participant;
   }
+
+  /**
+   * Create a new Participant and persist
+   *
+   * @return the course object created
+   */
+  public Participant createAndPersistParticipant(String firstName, String lastName, String birthdate) {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Participant participant = new Participant(firstName, lastName, birthdate);
+    entityManager.persist(participant);
+
+    entityManager.getTransaction().commit();
+    entityManager.close();
+
+    return participant;
+  }
+
+  /**
+   * Find a participant by his id
+   *
+   * @param participantid : specifies which customer to return
+   * @return an objet customer
+   */
+  public Participant getCustomerByID(Integer participantid) throws ParticipantException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    Participant actualParticipant = entityManager.find(Participant.class, participantid);
+    if (actualParticipant != null) {
+      return actualParticipant;
+    } else {
+      throw new ParticipantException("Participant with id " + participantid + " not found");
+    }
+  }
+
   @Override
   public void finalize() throws Throwable {
     entityManagerFactory.close();
