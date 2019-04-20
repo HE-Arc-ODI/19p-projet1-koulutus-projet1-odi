@@ -29,4 +29,10 @@ public class ProgramResource {
                                  @PathParam("price") Integer price){
         return persistenceService.createAndPersistProgram(name,richDescription,field,price);
     }
+
+    @GET
+    @Path("{programId}")
+    public Program getProgramById(@PathParam("programId") Integer programId){
+        return persistenceService.getProgramById(programId);
+    }
 }
