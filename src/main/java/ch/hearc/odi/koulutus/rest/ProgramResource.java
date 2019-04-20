@@ -21,4 +21,12 @@ public class ProgramResource {
         return persistenceService.getPrograms();
     }
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Program createProgram(@PathParam("name") String name,
+                                 @PathParam("richDescription") String richDescription,
+                                 @PathParam("field") String field,
+                                 @PathParam("price") Integer price){
+        return persistenceService.createAndPersistProgram(name,richDescription,field,price);
+    }
 }
