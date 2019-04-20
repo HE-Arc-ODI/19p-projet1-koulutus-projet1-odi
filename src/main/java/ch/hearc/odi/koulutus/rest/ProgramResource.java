@@ -16,7 +16,9 @@ public class ProgramResource {
     private PersistenceService persistenceService;
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Program> getAllPrograms() {
         return persistenceService.getPrograms();
     }
+
 }

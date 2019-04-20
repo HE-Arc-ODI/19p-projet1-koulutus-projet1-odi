@@ -1,12 +1,11 @@
 package ch.hearc.odi.koulutus.business;
 
 import ch.hearc.odi.koulutus.exception.ProgramException;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.ArrayList;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.ws.rs.ProcessingException;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.List;
@@ -92,8 +91,8 @@ public class Program implements Serializable {
         this.price = price;
     }
 
-    @OneToMany(targetEntity = Course.class, cascade = CascadeType.ALL, mappedBy = "program", fetch = FetchType.EAGER)
-    @JsonManagedReference
+    @XmlElement
+    @Transient
     public List<Course> getCourses() { return courses; }
 
     public void setCourses(List<Course> courses) {

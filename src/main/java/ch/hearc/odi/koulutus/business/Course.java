@@ -1,13 +1,8 @@
 package ch.hearc.odi.koulutus.business;
 
-import ch.hearc.odi.koulutus.business.Course.status;
-import ch.hearc.odi.koulutus.exception.ParticipantException;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,7 +29,6 @@ public class Course implements Serializable {
     CANCELLED
   }
   private List<Session> sessions;
-
 
   public Course(Integer quarter, Integer year, Integer maxNumberOfParticipants,
       Enum status) {
@@ -117,9 +111,4 @@ public class Course implements Serializable {
   public void setMaxNumberOfParticipants(Integer maxNumberOfParticipants) {
     this.maxNumberOfParticipants = maxNumberOfParticipants;
   }
-
-
-
-
-
 }
