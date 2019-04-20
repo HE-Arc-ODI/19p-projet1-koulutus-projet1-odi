@@ -50,4 +50,17 @@ public class ProgramResource {
             throw new WebApplicationException("Program not delete");
         }
     }
+
+    @PUT
+    @Path("{programId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void updateProgram(@PathParam("programId") Integer programId,
+                              Program newProgram){
+        try{
+            persistenceService.updateProgram(programId,newProgram);
+        }catch (ProgramException ex){
+            ex.printStackTrace();
+            throw new WebApplicationException("Program not updated");
+        }
+    }
 }

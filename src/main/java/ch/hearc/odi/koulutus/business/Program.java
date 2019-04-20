@@ -115,4 +115,12 @@ public class Program implements Serializable {
     public void removeCourse(Integer id) throws ProgramException {
         this.courses.remove(getIndex(id));
     }
+
+    public void update(Program newProgram) {
+        this.setCourses(newProgram.getCourses());
+        this.setField(newProgram.getField());
+        this.setName(newProgram.getName());
+        this.setPrice(newProgram.getPrice());
+        this.setRichDescription(newProgram.getRichDescription());
+    }
 }

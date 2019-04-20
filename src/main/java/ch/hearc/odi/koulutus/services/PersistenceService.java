@@ -95,6 +95,26 @@ public class PersistenceService {
   }
 
   /**
+   * Update a Program
+   *
+   * @param programId specifies which object to update
+   * @param newProgram new data
+   * @return the program updated
+   * @throws ProgramException if the id does not match any existing customer
+   */
+  public Program updateProgram(Integer programId, Program newProgram) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = entityManager.find(Program.class, programId);
+    if (program == null){
+      throw new ProgramException("Program with id "+ programId +" not found");
+    }
+    program.update(newProgram);
+    entityManager.getTransaction().commit();
+    return program;
+  }
+
+  /**
    * Return all existing courses for a given program id *
    *
    * @return a list
