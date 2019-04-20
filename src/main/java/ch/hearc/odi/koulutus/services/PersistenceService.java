@@ -170,10 +170,10 @@ public class PersistenceService {
    * @return the course object created
    */
   public Course createAndPersistCourse(Integer programId, Integer quarter, Integer year,
-                                       Integer maxNumberOfParticipants, Enum status) throws ProgramException {
+                                       Integer maxNumberOfParticipants) throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
-    Course courses = new Course(quarter, year, maxNumberOfParticipants, status);
+    Course courses = new Course(quarter, year, maxNumberOfParticipants);
     Program program = getProgramById(programId);
 
     if (program != null) {
