@@ -76,6 +76,25 @@ public class PersistenceService {
   }
 
   /**
+   * Delete a program
+   *
+   * @param id of the objet to delete
+   * @throws ProgramException if the id does not match any existing product
+   */
+  public void deleteProgram(Integer programId) throws ProgramException{
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = entityManager.find(Program.class, programId);
+
+    if (program == null){
+      throw  new ProgramException("Program with id "+ programId +" not found");
+    }
+    entityManager.remove(program);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+  }
+
+  /**
    * Return all existing courses for a given program id *
    *
    * @return a list

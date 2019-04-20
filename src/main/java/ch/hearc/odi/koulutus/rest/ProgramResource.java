@@ -2,10 +2,12 @@ package ch.hearc.odi.koulutus.rest;
 
 
 import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.exception.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 
@@ -34,5 +36,18 @@ public class ProgramResource {
     @Path("{programId}")
     public Program getProgramById(@PathParam("programId") Integer programId){
         return persistenceService.getProgramById(programId);
+    }
+
+    @DELETE
+    @Path("{programId}")
+    public void deleteProgramById(@PathParam("programId") Integer programId){
+        try{
+            persistenceService.deleteProgram(programId);
+            CacheControl cacheControl = new CacheControl();
+            cacheControl.setMaxAge(86400);
+        }catch (ProgramException ex){
+            ex.printStackTrace();
+            throw new WebApplicationException("Program not delete");
+        }
     }
 }
