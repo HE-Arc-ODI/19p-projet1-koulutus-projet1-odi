@@ -75,6 +75,15 @@ public class PersistenceService {
     return program;
   }
 
+  public Program createAndPersistProgram(Program program) {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    entityManager.persist(program);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    return program;
+  }
+
   /**
    * Delete a program
    *
