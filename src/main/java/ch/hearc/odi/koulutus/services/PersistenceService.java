@@ -87,7 +87,7 @@ public class PersistenceService {
   /**
    * Delete a program
    *
-   * @param id of the objet to delete
+   * @param programId of the objet to delete
    * @throws ProgramException if the id does not match any existing product
    */
   public void deleteProgram(Integer programId) throws ProgramException{
