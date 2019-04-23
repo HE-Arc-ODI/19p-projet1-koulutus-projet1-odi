@@ -21,7 +21,13 @@ public class Session {
     private String room;
 
     public Session(){
+    }
 
+    public Session(Date startDateTime, Date endDateTime, Double price, String room) {
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+        this.price = price;
+        this.room = room;
     }
 
     @Id

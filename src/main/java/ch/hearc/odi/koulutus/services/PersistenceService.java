@@ -8,14 +8,14 @@ package ch.hearc.odi.koulutus.services;
 import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.business.Session;
+import ch.hearc.odi.koulutus.exception.ParticipantException;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
+import javax.servlet.http.Part;
 
 public class PersistenceService {
 
@@ -163,6 +163,84 @@ public class PersistenceService {
 
     return (ArrayList<Participant>) participant;
   }
+
+  /**
+   * Create a new Participant and persist
+   *
+   * @return the course object created
+   */
+  public Participant createAndPersistParticipant(String firstName, String lastName, String birthdate) {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Participant participant = new Participant(firstName, lastName, birthdate);
+    entityManager.persist(participant);
+
+    entityManager.getTransaction().commit();
+    entityManager.close();
+
+    return participant;
+  }
+
+  /**
+   * Find a participant by his id
+   *
+   * @param participantid : specifies which customer to return
+   * @return an objet customer
+   */
+  public Participant getParticipantByID(Integer participantid) throws ParticipantException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    Participant actualParticipant = entityManager.find(Participant.class, participantid);
+    if (actualParticipant != null) {
+      return actualParticipant;
+    } else {
+      throw new ParticipantException("Participant with id " + participantid + " not found");
+    }
+  }
+
+/**
+ * Create a new Session and persist
+ *
+ * @return the session object created
+ */
+public Session createAndPersistSession(Integer programId, Integer courseId, Date startDateTime, Date endDateTime,
+                                       Double price, String room) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Course courseFromBD = this.getCourseByIdProgramId(programId, courseId);
+
+    Session session = new Session(startDateTime, endDateTime, price, room);
+
+    if (courseFromBD != null){
+        courseFromBD.addSessions(session);
+        entityManager.persist(session);
+        entityManager.merge(courseFromBD);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }else{
+        throw new ProgramException("Program or course not found");
+    }
+
+    return session;
+}
+
+public void registerParticipantToCourse(Integer programId, Integer courseId, Integer participantId) throws ProgramException, ParticipantException {
+  EntityManager entityManager = entityManagerFactory.createEntityManager();
+  entityManager.getTransaction().begin();
+
+  Course courseFromDB = this.getCourseByIdProgramId(programId, courseId);
+  Participant participantFromDB = this.getParticipantByID(participantId);
+
+  if (courseFromDB != null && participantFromDB != null) {
+    participantFromDB.addCourses(courseFromDB);
+    entityManager.merge(participantFromDB);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+  } else {
+    throw new ProgramException("Course or participant not found");
+  }
+
+}
+
   @Override
   public void finalize() throws Throwable {
     entityManagerFactory.close();

@@ -84,7 +84,9 @@ public class Participant {
   }
 
   public void addCourses(Course course) throws ProgramException {
-    courses.add(course);
+    if (!courses.contains(course)) {
+      courses.add(course);
+    }
   }
 
   public Course getCourses(Integer id) throws ParticipantException {
