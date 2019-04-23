@@ -1,6 +1,7 @@
 package ch.hearc.odi.koulutus.rest;
 
 
+import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Program;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
@@ -25,11 +26,8 @@ public class ProgramResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Program createProgram(@PathParam("name") String name,
-                                 @PathParam("richDescription") String richDescription,
-                                 @PathParam("field") String field,
-                                 @PathParam("price") Integer price){
-        return persistenceService.createAndPersistProgram(name,richDescription,field,price);
+    public Program createProgram(Program program){
+        return persistenceService.createAndPersistProgram(program);
     }
 
     @GET
@@ -63,4 +61,32 @@ public class ProgramResource {
             throw new WebApplicationException("Program not updated");
         }
     }
+
+    /*COURSE
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("{programId/course}")
+    public Course createCourseByProgramId(@PathParam("programId") Integer programId,
+                                          @PathParam("quarter") Integer quarter,
+                                          @PathParam("year") Integer year,
+                                          @PathParam("maxNumberOfParticipants") Integer maxNumberOfParticipants){
+        try {
+            return persistenceService.createAndPersistCourse(programId,quarter,year,maxNumberOfParticipants);
+        } catch (ProgramException ex) {
+            ex.printStackTrace();
+            throw new WebApplicationException("Program "+ programId +" not found");
+        }
+    }
+
+    //A TESTER !!!!!!!!!!!!!!!!!!!!
+    @GET
+    @Path("{programId/course}")
+    public ArrayList<Course> getCourseByProgramId(@PathParam("programId") Integer programId){
+        try {
+            return persistenceService.getCoursesByProgramId(programId);
+        } catch (ProgramException ex) {
+            ex.printStackTrace();
+            throw new WebApplicationException("Program "+ programId +" not found");
+        }
+    }*/
 }
