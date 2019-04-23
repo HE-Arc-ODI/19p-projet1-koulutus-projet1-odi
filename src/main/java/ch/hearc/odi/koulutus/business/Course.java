@@ -3,6 +3,7 @@ package ch.hearc.odi.koulutus.business;
 import ch.hearc.odi.koulutus.business.Course.status;
 import ch.hearc.odi.koulutus.exception.ParticipantException;
 import ch.hearc.odi.koulutus.exception.ProgramException;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -14,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
@@ -28,6 +30,8 @@ public class Course implements Serializable {
   private Integer quarter;
   private Integer year;
   private Integer maxNumberOfParticipants;
+  private Program program;
+
   enum status {
     OPEN,
     CONFIRMED,
@@ -116,6 +120,16 @@ public class Course implements Serializable {
 
   public void setMaxNumberOfParticipants(Integer maxNumberOfParticipants) {
     this.maxNumberOfParticipants = maxNumberOfParticipants;
+  }
+
+  @ManyToOne
+  @JsonBackReference
+  public Program getProgram() {
+    return program;
+  }
+
+  public void setMarathon(Program program) {
+    this.program = program;
   }
 
 
