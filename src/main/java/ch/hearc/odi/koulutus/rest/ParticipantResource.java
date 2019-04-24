@@ -2,6 +2,7 @@ package ch.hearc.odi.koulutus.rest;
 
 import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.exception.ParticipantException;
+import ch.hearc.odi.koulutus.exception.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 
 import javax.inject.Inject;
@@ -30,4 +31,21 @@ public class ParticipantResource {
             throw new WebApplicationException("Participant not found");
         }
     }
+
+    @POST
+    @Path("{programId}/course/{courseId}/participant/{participantId}")
+    public void registerParticipantToCourse(@PathParam("programId") Integer programId,
+                                            @PathParam("courseId") Integer courseId,
+                                            @PathParam("participantId") Integer participantId){
+        try{
+            persistenceService.registerParticipantToCourse(programId,courseId,participantId);
+        } catch (ProgramException ex){
+            ex.printStackTrace();
+            throw new WebApplicationException("Error with Program while registering");
+        }catch (ParticipantException ex){
+            ex.printStackTrace();
+            throw new WebApplicationException("Error with Participant while registering");
+        }
+    }
+
 }
