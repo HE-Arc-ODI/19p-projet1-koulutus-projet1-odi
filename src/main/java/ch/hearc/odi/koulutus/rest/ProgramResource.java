@@ -63,6 +63,14 @@ public class ProgramResource {
         }
     }
 /***********************COURSE****************************************************************/
+
+  @GET
+  @Path("{programId}/course")
+  public Course getAllCourseFromProgram(@PathParam("programId") Integer programId){
+    
+  }
+
+
   @POST
   @Path("{courseId}")
   public Course addCourseToProgram(@PathParam("courseId") Integer courseId,
