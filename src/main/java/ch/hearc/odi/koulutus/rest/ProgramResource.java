@@ -130,9 +130,8 @@ public class ProgramResource {
   public Participant participantFromGivenCourse(@PathParam("participantId") Integer participantId){
     try{
       return persistenceService.getParticipantFromGivenCourse(participantId);
-    }catch (ParticipantException ex){
-      ex.printStackTrace();
-      throw new WebApplicationException("Participant not found");
+    } catch (ProgramException e) {
+      e.printStackTrace();
     }
   }
 }
