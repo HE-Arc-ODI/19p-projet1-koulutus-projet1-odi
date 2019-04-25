@@ -295,6 +295,8 @@ public void registerParticipantToCourse(Integer programId, Integer courseId, Int
   public void unregisterParticipantToCourse(Integer programId, Integer courseId, Integer participantId)
       throws ProgramException, ParticipantException {
 
+    Course course = getCourseByIdProgramId(programId, courseId);
+
   }
 
   @Override
