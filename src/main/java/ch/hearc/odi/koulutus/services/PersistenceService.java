@@ -292,6 +292,10 @@ public void registerParticipantToCourse(Integer programId, Integer courseId, Int
   /**
    * unregister a participant to a course
    */
+  public void unregisterParticipantToCourse(Integer programId, Integer courseId, Integer participantId)
+      throws ProgramException, ParticipantException {
+
+  }
 
   @Override
   public void finalize() throws Throwable {
