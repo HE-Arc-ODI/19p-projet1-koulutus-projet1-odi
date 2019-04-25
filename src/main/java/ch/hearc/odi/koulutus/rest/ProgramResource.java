@@ -6,6 +6,7 @@ import ch.hearc.odi.koulutus.business.Program;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 
+import java.util.Date;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.CacheControl;
@@ -62,22 +63,15 @@ public class ProgramResource {
         }
     }
 
-    /*COURSE
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("{programId/course}")
-    public Course createCourseByProgramId(@PathParam("programId") Integer programId,
-                                          @PathParam("quarter") Integer quarter,
-                                          @PathParam("year") Integer year,
-                                          @PathParam("maxNumberOfParticipants") Integer maxNumberOfParticipants){
-        try {
-            return persistenceService.createAndPersistCourse(programId,quarter,year,maxNumberOfParticipants);
-        } catch (ProgramException ex) {
-            ex.printStackTrace();
-            throw new WebApplicationException("Program "+ programId +" not found");
-        }
-    }
+  @POST
+  @Path("{courseId}")
+  public Course addCourseToProgram(@PathParam("courseId") Integer courseId,
+      @FormParam("quarter") Integer quarter,
+      @FormParam("year") Integer year,
+      @FormParam("maxNumberOfParticipants") Integer maxNumberOfParticipants) {
 
+  }
+/*
     //A TESTER !!!!!!!!!!!!!!!!!!!!
     @GET
     @Path("{programId/course}")
