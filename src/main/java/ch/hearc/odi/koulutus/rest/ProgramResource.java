@@ -74,7 +74,6 @@ public class ProgramResource {
     }
   }
 
-
   @POST
   @Path("{courseId}")
   public Course addCourseToProgram(@PathParam("courseId") Integer courseId,
@@ -99,6 +98,18 @@ public class ProgramResource {
     } catch (ProgramException e) {
       e.printStackTrace();
       throw new NotFoundException("the program does not exist");
+    }
+  }
+
+  @DELETE
+  @Path("{programId}/course/{courseId}")
+  public Course deleteCourseFromGivenProgram(@PathParam("programId") Integer programId,
+      @PathParam("courseId") Integer courseId) {
+    try {
+      return persistenceService.deleteCourseFromProgram(courseId, programId);
+    } catch (ProgramException e) {
+      e.printStackTrace();
+      throw new NotFoundException("the course does not exist");
     }
   }
 
