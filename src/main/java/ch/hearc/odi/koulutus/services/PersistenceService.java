@@ -114,7 +114,7 @@ public class PersistenceService {
 
   /**
    * Return all existing courses for a given program id *
-   *
+   * Swagger : Get all course for a given program
    * @return a list
    */
   public ArrayList<Course> getCoursesByProgramId(Integer programId) throws ProgramException {
