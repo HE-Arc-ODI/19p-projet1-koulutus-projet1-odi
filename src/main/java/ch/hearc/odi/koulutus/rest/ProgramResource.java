@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class ProgramResource {
     @Inject
     private PersistenceService persistenceService;
-
+/*********************Program****************************************************************/
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Program> getAllPrograms() {
@@ -62,7 +62,7 @@ public class ProgramResource {
             throw new WebApplicationException("Program not updated");
         }
     }
-
+/***********************COURSE****************************************************************/
   @POST
   @Path("{courseId}")
   public Course addCourseToProgram(@PathParam("courseId") Integer courseId,
@@ -78,11 +78,6 @@ public class ProgramResource {
       throw new NotFoundException("The course does not exist");
     }
   }
-
-    /*
-    *
-  GET :  COURSE BY ID FROM PROGRAM BY ID
- */
 
   @GET
   @Path("{programId}/course/{courseId}")
