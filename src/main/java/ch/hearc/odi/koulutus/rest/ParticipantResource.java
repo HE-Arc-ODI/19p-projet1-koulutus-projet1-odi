@@ -47,5 +47,8 @@ public class ParticipantResource {
             throw new WebApplicationException("Error with Participant while registering");
         }
     }
+    /*
+  DELET : DELET PARTICIPANT FROM MARATHON
+   */
 
 }
