@@ -2,9 +2,7 @@ package ch.hearc.odi.koulutus.rest;
 
 
 import ch.hearc.odi.koulutus.business.Course;
-import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Program;
-import ch.hearc.odi.koulutus.exception.ParticipantException;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 
@@ -127,9 +125,9 @@ public class ProgramResource {
 
   @GET
   @Path("{participantId}")
-  public Participant participantFromGivenCourse(@PathParam("participantId") Integer participantId){
+  public void participantFromGivenCourse(@PathParam("participantId") Integer participantId){
     try{
-      return persistenceService.getParticipantFromGivenCourse(participantId);
+      persistenceService.getParticipantFromGivenCourse(participantId);
     } catch (ProgramException e) {
       e.printStackTrace();
     }
