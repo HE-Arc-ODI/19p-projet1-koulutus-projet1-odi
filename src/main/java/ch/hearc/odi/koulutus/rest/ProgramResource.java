@@ -122,18 +122,5 @@ public class ProgramResource {
       @PathParam("courseId") Integer courseId) {
     persistenceService.updateCourse(programId, courseId);
   }
-
-
-/*
-    //A TESTER !!!!!!!!!!!!!!!!!!!!
-    @GET
-    @Path("{programId/course}")
-    public ArrayList<Course> getCourseByProgramId(@PathParam("programId") Integer programId){
-        try {
-            return persistenceService.getCoursesByProgramId(programId);
-        } catch (ProgramException ex) {
-            ex.printStackTrace();
-            throw new WebApplicationException("Program "+ programId +" not found");
-        }
-    }*/
+  
 }
