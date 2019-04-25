@@ -80,8 +80,21 @@ public class ProgramResource {
   }
 
     /*
+    *
   GET :  COURSE BY ID FROM PROGRAM BY ID
  */
+
+  @GET
+  @Path("{programId}/course/{courseId}")
+  public Course courseByIdFromGivenProgram(@PathParam("programId") Integer programId,
+      @PathParam("courseId") Integer courseId) {
+    try {
+      return persistenceService.getCourseByIdProgramId(programId, courseId);
+    } catch (ProgramException e) {
+      e.printStackTrace();
+      throw new NotFoundException("the program does not exist");
+    }
+  }
 
 
 /*
