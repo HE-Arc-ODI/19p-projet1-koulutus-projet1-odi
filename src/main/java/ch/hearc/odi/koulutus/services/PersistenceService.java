@@ -32,7 +32,7 @@ public class PersistenceService {
 
   /**
    * Return all existing program
-   *
+   * Swagger : List all training programs   *
    * @return a list
    */
   public ArrayList<Program> getPrograms() {
@@ -43,6 +43,21 @@ public class PersistenceService {
     /*entityManager.getTransaction().commit();
     entityManager.close();*/
     return (ArrayList<Program>) programs;
+  }
+  /**
+   * Create a new Program and persist
+   * Swagger : Create a new training program
+   * @return the program object created
+   */
+  public Program createAndPersistProgram(String name, String richDescription, String field,
+      Integer price) {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = new Program(name, richDescription, field, price);
+    entityManager.persist(program);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    return program;
   }
 
   /**
@@ -59,30 +74,7 @@ public class PersistenceService {
     return program;
   }
 
-  /**
-   * Create a new Program and persist
-   *
-   * @return the program object created
-   */
-  public Program createAndPersistProgram(String name, String richDescription, String field,
-                                         Integer price) {
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    entityManager.getTransaction().begin();
-    Program program = new Program(name, richDescription, field, price);
-    entityManager.persist(program);
-    entityManager.getTransaction().commit();
-    entityManager.close();
-    return program;
-  }
 
-  public Program createAndPersistProgram(Program program) {
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    entityManager.getTransaction().begin();
-    entityManager.persist(program);
-    entityManager.getTransaction().commit();
-    entityManager.close();
-    return program;
-  }
 
   /**
    * Delete a program
@@ -300,7 +292,15 @@ public void registerParticipantToCourse(Integer programId, Integer courseId, Int
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
 
+    if (course == null){
+      throw  new ProgramException("Course with id "+ courseId +" in Program with id "+ programId +"not found ");
+    }
 
+    entityManager.remove(participantId);
+    entityManager.merge(course);
+
+    entityManager.getTransaction().commit();
+    entityManager.close();
 
   }
 
