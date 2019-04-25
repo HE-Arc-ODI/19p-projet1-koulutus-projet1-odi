@@ -24,6 +24,8 @@ public class Course implements Serializable {
   private Integer quarter;
   private Integer year;
   private Integer maxNumberOfParticipants;
+  
+
   enum status {
     OPEN,
     CONFIRMED,
