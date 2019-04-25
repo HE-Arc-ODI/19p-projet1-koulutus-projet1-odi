@@ -24,7 +24,7 @@ public class Course implements Serializable {
   private Integer quarter;
   private Integer year;
   private Integer maxNumberOfParticipants;
-  
+
 
   enum status {
     OPEN,
@@ -115,4 +115,8 @@ public class Course implements Serializable {
     this.maxNumberOfParticipants = maxNumberOfParticipants;
   }
 
+  public void update(Course newCourse) {
+    this.setMaxNumberOfParticipants(newCourse.setMaxNumberOfParticipants());
+    this.setQuarter(newCourse.setQuarter());
+  }
 }
