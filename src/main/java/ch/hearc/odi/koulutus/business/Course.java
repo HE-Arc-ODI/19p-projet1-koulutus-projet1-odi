@@ -113,7 +113,4 @@ public class Course implements Serializable {
     this.maxNumberOfParticipants = maxNumberOfParticipants;
   }
 
-  public void unregisterParticipant(Integer id) throws ParticipantException, ProgramException {
-    
-  }
 }
