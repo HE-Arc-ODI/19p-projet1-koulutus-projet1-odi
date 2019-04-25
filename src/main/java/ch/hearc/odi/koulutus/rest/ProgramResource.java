@@ -117,7 +117,10 @@ public class ProgramResource {
   @Path("{programId}/course/{courseId}")
   public  Course updateCourse(@PathParam("programId") Integer programId, @PathParam("courseId") Integer courseId){
     try {
-
+      persistenceService.updateCourse(programId, courseId);
+    }catch (ProgramException e){
+      e.printStackTrace();
+      throw new NotFoundException("the program does not exist");
     }
   }
 
