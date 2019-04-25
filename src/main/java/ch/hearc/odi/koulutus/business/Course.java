@@ -1,5 +1,6 @@
 package ch.hearc.odi.koulutus.business;
 
+import ch.hearc.odi.koulutus.exception.ParticipantException;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -110,5 +111,9 @@ public class Course implements Serializable {
 
   public void setMaxNumberOfParticipants(Integer maxNumberOfParticipants) {
     this.maxNumberOfParticipants = maxNumberOfParticipants;
+  }
+
+  public void unregisterParticipant(Integer id) throws ParticipantException, ProgramException {
+    
   }
 }
