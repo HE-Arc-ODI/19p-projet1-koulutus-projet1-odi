@@ -15,62 +15,65 @@ import java.util.ArrayList;
 @Path("program")
 @Produces(MediaType.APPLICATION_JSON)
 public class ProgramResource {
-    @Inject
-    private PersistenceService persistenceService;
-/*********************Program****************************************************************/
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Program> getAllPrograms() {
-        return persistenceService.getPrograms();
-    }
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Program createProgram(Program program){
-        return persistenceService.createAndPersistProgram(program);
-    }
+  @Inject
+  private PersistenceService persistenceService;
 
-    @GET
-    @Path("{programId}")
-    public Program getProgramById(@PathParam("programId") Integer programId){
-        return persistenceService.getProgramById(programId);
-    }
+  /*********************Program****************************************************************/
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  public ArrayList<Program> getAllPrograms() {
+    return persistenceService.getPrograms();
+  }
 
-    @DELETE
-    @Path("{programId}")
-    public void deleteProgramById(@PathParam("programId") Integer programId){
-        try{
-            persistenceService.deleteProgram(programId);
-            CacheControl cacheControl = new CacheControl();
-            cacheControl.setMaxAge(86400);
-        }catch (ProgramException ex){
-            ex.printStackTrace();
-            throw new WebApplicationException("Program not delete");
-        }
-    }
+  @POST
+  @Consumes(MediaType.APPLICATION_JSON)
+  public Program createProgram(Program program) {
+    return persistenceService.createAndPersistProgram(program);
+  }
 
-    @PUT
-    @Path("{programId}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void updateProgram(@PathParam("programId") Integer programId,
-                              Program newProgram){
-        try{
-            persistenceService.updateProgram(programId,newProgram);
-        }catch (ProgramException ex){
-            ex.printStackTrace();
-            throw new WebApplicationException("Program not updated");
-        }
+  @GET
+  @Path("{programId}")
+  public Program getProgramById(@PathParam("programId") Integer programId) {
+    return persistenceService.getProgramById(programId);
+  }
+
+  @DELETE
+  @Path("{programId}")
+  public void deleteProgramById(@PathParam("programId") Integer programId) {
+    try {
+      persistenceService.deleteProgram(programId);
+      CacheControl cacheControl = new CacheControl();
+      cacheControl.setMaxAge(86400);
+    } catch (ProgramException ex) {
+      ex.printStackTrace();
+      throw new WebApplicationException("Program not delete");
     }
-/***********************COURSE****************************************************************/
+  }
+
+  @PUT
+  @Path("{programId}")
+  @Consumes(MediaType.APPLICATION_JSON)
+  public void updateProgram(@PathParam("programId") Integer programId,
+      Program newProgram) {
+    try {
+      persistenceService.updateProgram(programId, newProgram);
+    } catch (ProgramException ex) {
+      ex.printStackTrace();
+      throw new WebApplicationException("Program not updated");
+    }
+  }
+
+  /***********************COURSE****************************************************************/
 
   @GET
   @Path("{programId}/course")
-  public ArrayList<Course> getAllCourseFromProgram(@PathParam("programId") Integer programId){
+  public ArrayList<Course> getAllCourseFromProgram(@PathParam("programId") Integer programId) {
     try {
       return persistenceService.getCoursesByProgramId(programId);
     } catch (ProgramException ex) {
       ex.printStackTrace();
-      throw new WebApplicationException("Program "+ programId +" not found");
+      throw new WebApplicationException("Program " + programId + " not found");
     }
   }
 
@@ -115,14 +118,11 @@ public class ProgramResource {
 
   @PUT
   @Path("{programId}/course/{courseId}")
-  public  Course updateCourse(@PathParam("programId") Integer programId, @PathParam("courseId") Integer courseId){
-    try {
-      persistenceService.updateCourse(programId, courseId);
-    }catch (ProgramException e){
-      e.printStackTrace();
-      throw new NotFoundException("the program does not exist");
-    }
+  public void updateCourse(@PathParam("programId") Integer programId,
+      @PathParam("courseId") Integer courseId) {
+    persistenceService.updateCourse(programId, courseId);
   }
+
 
 /*
     //A TESTER !!!!!!!!!!!!!!!!!!!!
