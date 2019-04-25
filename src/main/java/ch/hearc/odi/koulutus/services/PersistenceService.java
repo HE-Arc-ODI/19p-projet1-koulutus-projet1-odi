@@ -361,6 +361,24 @@ public class PersistenceService {
     entityManager.getTransaction().commit();
     return course;
   }
+
+  public Participant getParticipantFromGivenCourse(Integer participantId) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    TypedQuery<Participant> query = entityManager
+        .createQuery("SELECT p from Participant p where p.course.id = :participantId", Participant.class);
+
+    List<Participant> participants = query.setParameter("participantId", participantId).getResultList();
+
+    if (participants == null) {
+      throw new ProgramException("Participant " + participantId + " was not found");
+    }
+    entityManager.getTransaction().commit();
+    entityManager.close();
+
+    return (Participant) participants;
+
+  }
 }
 
 
