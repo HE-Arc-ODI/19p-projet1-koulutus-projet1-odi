@@ -351,6 +351,17 @@ public class PersistenceService {
     entityManager.close();
     return program;
   }
+
+  public void updateCourse(Integer programId, Integer courseId) {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = entityManager.find(Program.class, programId);
+    Course course = entityManager.find(Course.class, courseId);
+
+    course.update(course);
+    entityManager.getTransaction().commit();
+    return program;
+  }
 }
 
 
