@@ -55,6 +55,12 @@ public class ParticipantResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public void  deleteParticipantFromCourse(@PathParam("programId") Integer programId,
         @PathParam("courseId") Integer courseId, @PathParam("participantId") Integer participantId) {
+        try {
+            persistenceService.unregisterParticipantToCourse(programId, courseId, participantId);
+        } catch (ProgramException | ParticipantException e) {
+            e.printStackTrace();
+            throw new NotFoundException("The program does not exist");
+        }
 
     }
 
