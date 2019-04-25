@@ -79,6 +79,11 @@ public class ProgramResource {
     }
   }
 
+    /*
+  GET :  COURSE BY ID FROM PROGRAM BY ID
+ */
+
+
 /*
     //A TESTER !!!!!!!!!!!!!!!!!!!!
     @GET
