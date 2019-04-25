@@ -62,7 +62,7 @@ public class PersistenceService {
 
   /**
    * Return program by ID
-   *
+   * Swagger : View the details of a training program
    * @return a program
    */
   public Program getProgramById(Integer programId) {
@@ -74,11 +74,9 @@ public class PersistenceService {
     return program;
   }
 
-
-
   /**
    * Delete a program
-   *
+   * Swagger : Delete an existing training program
    * @param programId of the objet to delete
    * @throws ProgramException if the id does not match any existing product
    */
@@ -94,10 +92,9 @@ public class PersistenceService {
     entityManager.getTransaction().commit();
     entityManager.close();
   }
-
   /**
    * Update a Program
-   *
+   * Swagger : update an existing training program. Returns the updated training program.
    * @param programId specifies which object to update
    * @param newProgram new data
    * @return the program updated
