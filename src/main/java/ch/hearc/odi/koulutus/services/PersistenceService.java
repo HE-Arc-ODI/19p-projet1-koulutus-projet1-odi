@@ -289,6 +289,9 @@ public void registerParticipantToCourse(Integer programId, Integer courseId, Int
     throw new ProgramException("Course or participant not found");
   }
 }
+  /**
+   * unregister a participant to a course
+   */
 
   @Override
   public void finalize() throws Throwable {
