@@ -70,7 +70,15 @@ public class ProgramResource {
       @FormParam("year") Integer year,
       @FormParam("maxNumberOfParticipants") Integer maxNumberOfParticipants) {
 
+    try {
+      return persistenceService
+          .createAndPersistCourse(courseId, quarter, year, maxNumberOfParticipants);
+    } catch (ProgramException e) {
+      e.printStackTrace();
+      throw new NotFoundException("The course does not exist");
+    }
   }
+
 /*
     //A TESTER !!!!!!!!!!!!!!!!!!!!
     @GET
