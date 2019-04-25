@@ -2,7 +2,9 @@ package ch.hearc.odi.koulutus.rest;
 
 
 import ch.hearc.odi.koulutus.business.Course;
+import ch.hearc.odi.koulutus.business.Participant;
 import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.exception.ParticipantException;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 
@@ -122,5 +124,15 @@ public class ProgramResource {
       @PathParam("courseId") Integer courseId) {
     persistenceService.updateCourse(programId, courseId);
   }
-  
+
+  @GET
+  @Path("{participantId}")
+  public Participant participantFromGivenCourse(@PathParam("participantId") Integer participantId){
+    try{
+      return persistenceService.getParticipantFromGivenCourse(participantId);
+    }catch (ParticipantException ex){
+      ex.printStackTrace();
+      throw new WebApplicationException("Participant not found");
+    }
+  }
 }
