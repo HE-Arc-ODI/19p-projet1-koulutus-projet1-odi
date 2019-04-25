@@ -115,8 +115,12 @@ public class Course implements Serializable {
     this.maxNumberOfParticipants = maxNumberOfParticipants;
   }
 
+
   public void update(Course newCourse) {
-    this.setMaxNumberOfParticipants(newCourse.setMaxNumberOfParticipants());
-    this.setQuarter(newCourse.setQuarter());
+    this.setMaxNumberOfParticipants(newCourse.getMaxNumberOfParticipants());
+    this.setQuarter(newCourse.getQuarter());
+    this.setSessions(newCourse.getSessions());
+    this.setYear(newCourse.getYear());
+
   }
 }
