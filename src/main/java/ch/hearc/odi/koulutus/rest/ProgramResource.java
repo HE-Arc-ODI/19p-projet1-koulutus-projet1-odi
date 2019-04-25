@@ -113,6 +113,9 @@ public class ProgramResource {
     }
   }
 
+  @PUT
+  @Path("{programId}/course/{courseId}")
+  
 
 /*
     //A TESTER !!!!!!!!!!!!!!!!!!!!
