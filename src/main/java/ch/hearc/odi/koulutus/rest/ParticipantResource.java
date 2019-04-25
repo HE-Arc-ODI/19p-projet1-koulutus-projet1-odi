@@ -50,5 +50,10 @@ public class ParticipantResource {
     /*
   DELET : DELET PARTICIPANT FROM MARATHON
    */
+    @DELETE
+    @Path("{programId}/course/{courseId}/participant/{participantId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+
+
 
 }
