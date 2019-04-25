@@ -115,7 +115,11 @@ public class ProgramResource {
 
   @PUT
   @Path("{programId}/course/{courseId}")
-  
+  public  Course updateCourse(@PathParam("programId") Integer programId, @PathParam("courseId") Integer courseId){
+    try {
+
+    }
+  }
 
 /*
     //A TESTER !!!!!!!!!!!!!!!!!!!!
