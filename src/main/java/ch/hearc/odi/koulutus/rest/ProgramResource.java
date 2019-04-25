@@ -6,7 +6,6 @@ import ch.hearc.odi.koulutus.business.Program;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 
-import java.util.Date;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.CacheControl;
@@ -66,8 +65,13 @@ public class ProgramResource {
 
   @GET
   @Path("{programId}/course")
-  public Course getAllCourseFromProgram(@PathParam("programId") Integer programId){
-    
+  public ArrayList<Course> getAllCourseFromProgram(@PathParam("programId") Integer programId){
+    try {
+      return persistenceService.getCoursesByProgramId(programId);
+    } catch (ProgramException ex) {
+      ex.printStackTrace();
+      throw new WebApplicationException("Program "+ programId +" not found");
+    }
   }
 
 
@@ -77,7 +81,6 @@ public class ProgramResource {
       @FormParam("quarter") Integer quarter,
       @FormParam("year") Integer year,
       @FormParam("maxNumberOfParticipants") Integer maxNumberOfParticipants) {
-
     try {
       return persistenceService
           .createAndPersistCourse(courseId, quarter, year, maxNumberOfParticipants);
