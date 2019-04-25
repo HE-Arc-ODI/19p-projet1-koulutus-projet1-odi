@@ -296,8 +296,10 @@ public void registerParticipantToCourse(Integer programId, Integer courseId, Int
       throws ProgramException, ParticipantException {
 
     Course course = getCourseByIdProgramId(programId, courseId);
-    
+
     EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+
 
 
   }
