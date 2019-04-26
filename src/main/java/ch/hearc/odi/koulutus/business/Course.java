@@ -118,7 +118,7 @@ public class Course extends Session implements Serializable {
   public void update(Course newCourse) {
     this.setMaxNumberOfParticipants(newCourse.getMaxNumberOfParticipants());
     this.setQuarter(newCourse.getQuarter());
-    this.setSessions(newCourse.getSessions(sessionId));
+    //this.setSessions(newCourse.getSessions(sessionId));
     this.setYear(newCourse.getYear());
 
   }
