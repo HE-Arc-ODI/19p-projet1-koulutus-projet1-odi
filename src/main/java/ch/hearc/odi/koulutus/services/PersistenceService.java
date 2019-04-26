@@ -40,8 +40,6 @@ public class PersistenceService {
     entityManager.getTransaction().begin();
     List<Program> programs = entityManager.createQuery("from Program", Program.class)
         .getResultList();
-    /*entityManager.getTransaction().commit();
-    entityManager.close();*/
     return (ArrayList<Program>) programs;
   }
 
