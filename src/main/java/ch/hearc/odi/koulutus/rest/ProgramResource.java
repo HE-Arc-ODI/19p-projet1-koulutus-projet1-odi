@@ -171,6 +171,8 @@ public class ProgramResource {
   /**
    * delete a session by id for a given course and program
    */
+  @DELETE
+  @Path("{programId}/course/{courseId}/session/{sessionId}")
   public void deleteSessionByIdFromCourseIdAndProgId(Integer programId, Integer courseId,
       Integer sessionId)
       throws ProgramException {
@@ -187,5 +189,12 @@ public class ProgramResource {
         }
       }
     }
+  }
+  @Path("{programId}/course/{courseId}/session/{sessionId}")
+  @PUT
+  public Session updateSession(@PathParam("programId") Integer programId, @FormParam("courseId") Integer courseId,
+      @FormParam("sessionId") Integer sessionId, @FormParam("startDateTime") Date startDateTime, @FormParam("endDateTime") Date endDateTime, @FormParam("price") Double price, @FormParam("room") String room) {
+    return persistenceService.updateSession(programId, courseId, sessionId, startDateTime,endDateTime,price,room);
+
   }
 }
