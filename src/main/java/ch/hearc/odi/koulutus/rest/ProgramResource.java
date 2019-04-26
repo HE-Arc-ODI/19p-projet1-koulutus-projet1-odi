@@ -3,6 +3,7 @@ package ch.hearc.odi.koulutus.rest;
 
 import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.business.Session;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 
@@ -137,12 +138,7 @@ public class ProgramResource {
 
   @GET
   @Path("{programId}/course/{courseId}/session")
-  public ArrayList<Course> getAllSessionForGivenCourseAndProg(@PathParam("programId") Integer programId, @PathParam("courseId") Integer courseId) {
-    try {
-      return persistenceService.getSessionByCourseAndProgramId(programId, courseId);
-    } catch (ProgramException ex) {
-      ex.printStackTrace();
-      throw new WebApplicationException("Program " + programId + " not found");
-    }
+  public ArrayList<Session> getAllSessionForGivenCourseAndProg(@PathParam("programId") Integer programId, @PathParam("courseId") Integer courseId) {
+    return persistenceService.getSessionByCourseAndProgramId(programId, courseId);
   }
 }
