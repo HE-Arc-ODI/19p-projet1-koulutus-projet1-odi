@@ -93,7 +93,7 @@ public class Program implements Serializable {
 
     @XmlElement
     @Transient
-    public List<Course> getCourses() { return courses; }
+    public List<Course> getCourses(Integer courseId) { return courses; }
 
     public void setCourses(List<Course> courses) {
         this.courses = courses;
@@ -117,7 +117,7 @@ public class Program implements Serializable {
     }
 
     public void update(Program newProgram) {
-        this.setCourses(newProgram.getCourses());
+        this.setCourses(newProgram.getCourses(courseId));
         this.setField(newProgram.getField());
         this.setName(newProgram.getName());
         this.setPrice(newProgram.getPrice());
