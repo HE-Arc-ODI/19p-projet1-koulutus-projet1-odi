@@ -398,6 +398,10 @@ public class PersistenceService {
 
     return (ArrayList<Session>) sessions;
   }
+
+  public Session getSessionIdByCourseIdAndProgramId(Integer programId, Integer courseId, Integer sessionId) {
+
+  }
 }
 
 
