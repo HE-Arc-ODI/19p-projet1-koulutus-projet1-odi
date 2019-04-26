@@ -401,6 +401,31 @@ public class PersistenceService {
 
   public Session getSessionIdByCourseIdAndProgramId(Integer programId, Integer courseId, Integer sessionId) {
 
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+
+    TypedQuery<Session> query = entityManager.createQuery(
+        "SELECT s from Session s where s.course.id = :courseId and s.id = :programId",
+        Session.class);
+
+    Session session = query.setParameter("programId", programId)
+        .setParameter("courseId", courseId)
+        .setParameter("sessionId", sessionId)
+        .getSingleResult();
+
+    if (session == null) {
+      try {
+        throw new ProgramException("Program or course not found");
+      } catch (ProgramException e) {e.printStackTrace();
+
+      }
+    }
+
+    entityManager.getTransaction().commit();
+    entityManager.close();
+
+    return session;
+
   }
 }
 
