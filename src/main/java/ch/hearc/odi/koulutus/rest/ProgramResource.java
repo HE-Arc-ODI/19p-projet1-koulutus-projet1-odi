@@ -134,4 +134,15 @@ public class ProgramResource {
   }
 
   /*********************SESSION****************************************************************/
+
+  @GET
+  @Path("{programId}/course/{courseId}/session")
+  public ArrayList<Course> getAllSessionForGivenCourseAndProg(@PathParam("programId") Integer programId, @PathParam("courseId") Integer courseId) {
+    try {
+      return persistenceService.getSessionByCourseAndProgramId(programId, courseId);
+    } catch (ProgramException ex) {
+      ex.printStackTrace();
+      throw new WebApplicationException("Program " + programId + " not found");
+    }
+  }
 }
