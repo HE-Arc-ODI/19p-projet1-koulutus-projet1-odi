@@ -5,10 +5,12 @@ import ch.hearc.odi.koulutus.exception.ParticipantException;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 
+import java.util.Date;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
+import javax.ws.rs.core.Response;
 
 @Path("participant")
 @Produces(MediaType.APPLICATION_JSON)
@@ -60,6 +62,20 @@ public class ParticipantResource {
         } catch (ProgramException | ParticipantException e) {
             e.printStackTrace();
             throw new NotFoundException("The program does not exist");
+        }
+
+    }
+
+    @PUT
+    public Participant updateParticipant(@FormParam("participantId") Integer participantId,
+        @FormParam("firstName") String firstName,
+        @FormParam("lastName") String lastName,
+        @FormParam("birtday") String birthday) {
+        try {
+            return persistenceService.updateParticipant(participantId, firstName, lastName,birthday);
+        } catch (ParticipantException e) {
+            e.printStackTrace();
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
 
     }
