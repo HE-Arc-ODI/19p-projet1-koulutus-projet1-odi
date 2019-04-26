@@ -378,8 +378,25 @@ public class PersistenceService {
 
   }
 
-  public ArrayList<Course> getSessionByCourseAndProgramId(Integer programId, Integer courseId) {
+  public ArrayList<Session> getSessionByCourseAndProgramId(Integer programId, Integer courseId) {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    TypedQuery<Session> query = entityManager
+        .createQuery("SELECT s from Session s where s.course.id = :courseId", Session.class);
 
+    List<Session> sessions = query.setParameter("courseId", courseId).getResultList();
+
+    if (sessions == null) {
+      try {
+        throw new ProgramException("Course " + courseId + " was not found");
+      } catch (ProgramException e) {
+        e.printStackTrace();
+      }
+    }
+    entityManager.getTransaction().commit();
+    entityManager.close();
+
+    return (ArrayList<Session>) sessions;
   }
 }
 
