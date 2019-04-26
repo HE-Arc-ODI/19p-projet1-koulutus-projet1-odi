@@ -452,6 +452,15 @@ public class PersistenceService {
       throw new ParticipantException("unknown Participant: " + participantId);
     }
   }
+
+  public Course addParticipantToCourse(Integer participantId, Integer courseId, Integer programId)
+      throws ParticipantException {
+    Program program = this.getProgramById(programId);
+    Course course = (Course) program.getCourses(courseId);
+    Participant participant = this.getParticipantByID(participantId);
+
+    return null;
+  }
 }
 
 
