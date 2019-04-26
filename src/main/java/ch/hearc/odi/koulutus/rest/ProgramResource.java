@@ -127,8 +127,8 @@ public class ProgramResource {
 
   @GET
   @Path("{participantId}")
-  public void participantFromGivenCourse(@PathParam("participantId") Integer participantId){
-    try{
+  public void participantFromGivenCourse(@PathParam("participantId") Integer participantId) {
+    try {
       persistenceService.getParticipantFromGivenCourse(participantId);
     } catch (ProgramException e) {
       e.printStackTrace();
@@ -139,7 +139,8 @@ public class ProgramResource {
 
   @GET
   @Path("{programId}/course/{courseId}/session")
-  public ArrayList<Session> getAllSessionForGivenCourseAndProg(@PathParam("programId") Integer programId, @PathParam("courseId") Integer courseId) {
+  public ArrayList<Session> getAllSessionForGivenCourseAndProg(
+      @PathParam("programId") Integer programId, @PathParam("courseId") Integer courseId) {
     return persistenceService.getSessionByCourseAndProgramId(programId, courseId);
   }
 
@@ -152,8 +153,8 @@ public class ProgramResource {
       @FormParam("price") Double price,
       @FormParam("room") String room) {
     try {
-       persistenceService
-          .createAndPersistSession(programId,courseId,startDateTime,endDateTime,price,room);
+      persistenceService
+          .createAndPersistSession(programId, courseId, startDateTime, endDateTime, price, room);
     } catch (ProgramException e) {
       e.printStackTrace();
       throw new NotFoundException("The course does not exist");
@@ -164,6 +165,27 @@ public class ProgramResource {
   @Path("{programId}/course/{courseId}/session/{sessionId}")
   public Session getSessionForGivenCourseAndProg(@PathParam("programId") Integer programId,
       @PathParam("courseId") Integer courseId, @PathParam("sessionId") Integer sessionId) {
-    return persistenceService.getSessionIdByCourseIdAndProgramId(programId,courseId,sessionId);
+    return persistenceService.getSessionIdByCourseIdAndProgramId(programId, courseId, sessionId);
+  }
+
+  /**
+   * delete a session by id for a given course and program
+   */
+  public void deleteSessionByIdFromCourseIdAndProgId(Integer programId, Integer courseId,
+      Integer sessionId)
+      throws ProgramException {
+    Program p = getProgramById(programId);
+    if (p != null) {
+      if (courseId != null) {
+        Course c = (Course) p.getCourses(courseId);
+        if (c != null) {
+          if (sessionId != null) {
+            c.removeSession(sessionId);
+          } else {
+            throw new ProgramException("Session doesn't exsist");
+          }
+        }
+      }
+    }
   }
 }
