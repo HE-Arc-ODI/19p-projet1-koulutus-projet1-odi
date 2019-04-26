@@ -439,6 +439,19 @@ public class PersistenceService {
     s.setRoom(room);
     return s;
   }
+
+  public Participant updateParticipant(Integer participantId, String firstName, String lastName, String birthday)
+      throws  ParticipantException {
+    Participant p = this.getParticipantByID(participantId);
+    if (p != null) {
+      p.setFirstName(firstName);
+      p.setLastName(lastName);
+      p.setBirthdate(birthday);
+      return p;
+    } else {
+      throw new ParticipantException("unknown Participant: " + participantId);
+    }
+  }
 }
 
 
