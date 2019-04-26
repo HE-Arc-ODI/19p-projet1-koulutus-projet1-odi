@@ -379,6 +379,10 @@ public class PersistenceService {
     return (Participant) participants;
 
   }
+
+  public ArrayList<Course> getSessionByCourseAndProgramId(Integer programId, Integer courseId) {
+
+  }
 }
 
 
