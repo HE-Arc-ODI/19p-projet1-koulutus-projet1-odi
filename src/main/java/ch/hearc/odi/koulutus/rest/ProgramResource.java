@@ -159,4 +159,11 @@ public class ProgramResource {
       throw new NotFoundException("The course does not exist");
     }
   }
+
+  @GET
+  @Path("{programId}/course/{courseId}/session/{sessionId}")
+  public Session getSessionForGivenCourseAndProg(@PathParam("programId") Integer programId,
+      @PathParam("courseId") Integer courseId, @PathParam("sessionId") Integer sessionId) {
+    return persistenceService.getSessionIdByCourseIdAndProgramId(programId,courseId,sessionId);
+  }
 }
