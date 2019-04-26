@@ -7,6 +7,7 @@ import ch.hearc.odi.koulutus.business.Session;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 
+import java.util.Date;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.CacheControl;
@@ -140,5 +141,22 @@ public class ProgramResource {
   @Path("{programId}/course/{courseId}/session")
   public ArrayList<Session> getAllSessionForGivenCourseAndProg(@PathParam("programId") Integer programId, @PathParam("courseId") Integer courseId) {
     return persistenceService.getSessionByCourseAndProgramId(programId, courseId);
+  }
+
+  @POST
+  @Path("{programId}/course/{courseId}/session")
+  public void addSessionToCourseAndProg(@PathParam("programId") Integer programId,
+      @PathParam("courseId") Integer courseId,
+      @FormParam("startDateTime") Date startDateTime,
+      @FormParam("endDateTime") Date endDateTime,
+      @FormParam("price") Double price,
+      @FormParam("room") String room) {
+    try {
+       persistenceService
+          .createAndPersistSession(programId,courseId,startDateTime,endDateTime,price,room);
+    } catch (ProgramException e) {
+      e.printStackTrace();
+      throw new NotFoundException("The course does not exist");
+    }
   }
 }
