@@ -5,12 +5,12 @@ import ch.hearc.odi.koulutus.exception.ParticipantException;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 
-import java.util.Date;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 @Path("participant")
 @Produces(MediaType.APPLICATION_JSON)
@@ -78,6 +78,17 @@ public class ParticipantResource {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
 
+    }
+
+    @Path("{participantId}/summary")
+    @GET
+    public void summaryParticipant(@PathParam("participantId") Integer participantId) {
+        try {
+             persistenceService.getParticipantByID(participantId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new WebApplicationException(Status.NOT_FOUND);
+        }
     }
 
 
