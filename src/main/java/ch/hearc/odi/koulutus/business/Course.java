@@ -1,6 +1,5 @@
 package ch.hearc.odi.koulutus.business;
 
-import ch.hearc.odi.koulutus.exception.ParticipantException;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -63,8 +62,8 @@ public class Course extends Session implements Serializable {
   @OneToMany(targetEntity = Session.class, fetch = FetchType.EAGER)
   @JoinColumn(name = "session")
   @OrderColumn(name = "order_session")
-  public List<Session> getSessions() {
-    return this.getSessions();
+  public List<Session> getSessions(Integer sessionId) {
+    return this.getSessions(sessionId);
   }
 
   public void setSessions(List<Session> sessions) {
@@ -119,7 +118,7 @@ public class Course extends Session implements Serializable {
   public void update(Course newCourse) {
     this.setMaxNumberOfParticipants(newCourse.getMaxNumberOfParticipants());
     this.setQuarter(newCourse.getQuarter());
-    this.setSessions(newCourse.getSessions());
+    this.setSessions(newCourse.getSessions(sessionId));
     this.setYear(newCourse.getYear());
 
   }
