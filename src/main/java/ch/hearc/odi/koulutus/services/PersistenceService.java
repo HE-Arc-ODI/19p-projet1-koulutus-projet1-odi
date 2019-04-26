@@ -427,6 +427,18 @@ public class PersistenceService {
     return session;
 
   }
+
+  public Session updateSession(Integer programId, Integer courseId, Integer sessionId,
+      Date startDateTime, Date endDateTime, Double price,String room) {
+    Program program = getProgramById(programId);
+    Course c = (Course) program.getCourses(courseId);
+    Session s = (Session) c.getSessions(sessionId);
+    s.setEndDateTime(endDateTime);
+    s.setStartDateTime(startDateTime);
+    s.setPrice(price);
+    s.setRoom(room);
+    return s;
+  }
 }
 
 
