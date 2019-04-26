@@ -19,7 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "Course")
 @XmlRootElement(name = "Course")
-public class Course implements Serializable {
+public class Course extends Session implements Serializable {
   private Integer id;
   private Integer quarter;
   private Integer year;
