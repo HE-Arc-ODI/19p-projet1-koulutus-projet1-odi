@@ -400,7 +400,7 @@ public class PersistenceService {
   }
 
   public Session getSessionIdByCourseIdAndProgramId(Integer programId, Integer courseId, Integer sessionId) {
-
+ 
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
 
