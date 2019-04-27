@@ -56,10 +56,10 @@ public class ProgramResource {
   @PUT
   @Path("{programId}")
   @Consumes(MediaType.APPLICATION_JSON)
-  public void updateProgram(@PathParam("programId") Integer programId,
+  public Program updateProgram(@PathParam("programId") Integer programId,
       Program newProgram) {
     try {
-      persistenceService.updateProgram(programId, newProgram);
+      return persistenceService.updateProgram(programId, newProgram);
     } catch (ProgramException ex) {
       ex.printStackTrace();
       throw new WebApplicationException("Program not updated");
@@ -124,7 +124,7 @@ public class ProgramResource {
       @PathParam("courseId") Integer courseId) {
     persistenceService.updateCourse(programId, courseId);
   }
-
+  /*
   @GET
   @Path("{participantId}")
   public void participantFromGivenCourse(@PathParam("participantId") Integer participantId) {
@@ -133,7 +133,7 @@ public class ProgramResource {
     } catch (ProgramException e) {
       e.printStackTrace();
     }
-  }
+  }*/
 
   /*********************SESSION****************************************************************/
 
@@ -173,7 +173,8 @@ public class ProgramResource {
    */
   @DELETE
   @Path("{programId}/course/{courseId}/session/{sessionId}")
-  public void deleteSessionByIdFromCourseIdAndProgId(Integer programId, Integer courseId,
+  public void deleteSessionByIdFromCourseIdAndProgId(@PathParam("programId") Integer programId,
+                                                     @PathParam("courseId") Integer courseId,
       Integer sessionId)
       throws ProgramException {
     Program p = getProgramById(programId);

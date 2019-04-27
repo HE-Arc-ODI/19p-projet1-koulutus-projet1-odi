@@ -83,7 +83,7 @@ public class ParticipantResource {
         }
 
     }
-
+    /*
     @Path("{participantId}/summary")
     @GET
     public void summaryParticipant(@PathParam("participantId") Integer participantId) {
@@ -93,8 +93,9 @@ public class ParticipantResource {
             e.printStackTrace();
             throw new WebApplicationException(Status.NOT_FOUND);
         }
-    }
+    }*/
 
+    /*
     @Path("{programId}/course/{courseId}/participant/{participantId}")
     @POST
     public void addParticipantCourse(@PathParam("programId") Integer programId,
@@ -105,5 +106,5 @@ public class ParticipantResource {
         } catch (ParticipantException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }
