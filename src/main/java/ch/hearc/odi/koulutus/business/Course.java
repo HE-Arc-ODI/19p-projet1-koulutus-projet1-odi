@@ -18,11 +18,13 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "Course")
 @XmlRootElement(name = "Course")
-public class Course implements Serializable {
+public class Course extends Session implements Serializable {
   private Integer id;
   private Integer quarter;
   private Integer year;
   private Integer maxNumberOfParticipants;
+
+
   enum status {
     OPEN,
     CONFIRMED,
@@ -60,8 +62,8 @@ public class Course implements Serializable {
   @OneToMany(targetEntity = Session.class, fetch = FetchType.EAGER)
   @JoinColumn(name = "session")
   @OrderColumn(name = "order_session")
-  public List<Session> getSessions() {
-    return this.getSessions();
+  public List<Session> getSessions(Integer sessionId) {
+    return this.getSessions(sessionId);
   }
 
   public void setSessions(List<Session> sessions) {
@@ -110,5 +112,14 @@ public class Course implements Serializable {
 
   public void setMaxNumberOfParticipants(Integer maxNumberOfParticipants) {
     this.maxNumberOfParticipants = maxNumberOfParticipants;
+  }
+
+
+  public void update(Course newCourse) {
+    this.setMaxNumberOfParticipants(newCourse.getMaxNumberOfParticipants());
+    this.setQuarter(newCourse.getQuarter());
+    //this.setSessions(newCourse.getSessions(sessionId));
+    this.setYear(newCourse.getYear());
+
   }
 }
