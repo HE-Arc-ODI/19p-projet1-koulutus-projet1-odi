@@ -117,7 +117,7 @@ public class Program implements Serializable {
     }
 
     public void update(Program newProgram) {
-        this.setCourses(newProgram.getCourses(courseId));
+        this.setCourses(newProgram.getCourses(newProgram.id));
         this.setField(newProgram.getField());
         this.setName(newProgram.getName());
         this.setPrice(newProgram.getPrice());
