@@ -440,7 +440,7 @@ public class PersistenceService {
 
   }
 
-  public Session updateSession(Integer programId, Integer courseId, Integer sessionId,
+  /*public Session updateSession(Integer programId, Integer courseId, Integer sessionId,
       Date startDateTime, Date endDateTime, Double price,String room) {
     Program program = getProgramById(programId);
     Course c = (Course) program.getCourses();
@@ -450,7 +450,7 @@ public class PersistenceService {
     s.setPrice(price);
     s.setRoom(room);
     return s;
-  }
+  }*/
 
   public Participant updateParticipant(Integer participantId, String firstName, String lastName, String birthday)
       throws  ParticipantException {
