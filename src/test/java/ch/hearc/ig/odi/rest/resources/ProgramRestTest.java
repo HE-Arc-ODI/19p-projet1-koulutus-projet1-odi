@@ -2,9 +2,10 @@ package ch.hearc.ig.odi.rest.resources;
 
 import static org.junit.Assert.assertEquals;
 
-import ch.hearc.ig.odi.business.Marathon;
-import ch.hearc.ig.odi.injection.ServiceBinder;
-import ch.hearc.ig.odi.service.RestService;
+import ch.hearc.odi.koulutus.business.Program;
+import ch.hearc.odi.koulutus.injection.ServiceBinder;
+import ch.hearc.odi.koulutus.rest.ProgramResource;
+import ch.hearc.odi.koulutus.services.PersistenceService;
 import javax.inject.Inject;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
@@ -18,22 +19,28 @@ import org.junit.Test;
 public class ProgramRestTest extends JerseyTest {
 
   @Inject
-  RestService service;
+  PersistenceService PersistenceService;
 
   @Test
-  public void createMarathonReturnsExpectedCode() {
+  public void createProgramReturnsExpectedCode() {
     // Arrange
-    long expectedId = 9999L;
-    String expectedName = "Test Marathon";
-    String expectedCity = "New Jersey";
-    int expectedStatus = 200;
+    Integer expectedId = 1004;
+    String expectedName = "Cuisine coréenne";
+    String expectedRichDescription = "Le Pays du matin calme se situe à la confluence entre la Chine et le Japon. Dans ce contexte spécifique, la cuisine coréenne, si elle semble plonger ses racines dans les traditions culinaires de ses voisins, se particularise par les divers ingrédients tels que l'ail, le piment rouge, la sauce de soja, le gingembre et les graines et huile de sésame.";
+    String expectedField= "Gatronomie";
+    Integer expectedPrice= 150;
+
+    String expectedStatus = "200";
+
 
     // Act
     MultivaluedMap<String, String> formData = new MultivaluedHashMap<>();
-    formData.add("id", Long.toString(expectedId));
+    formData.add("id", Integer.toString(expectedId));
     formData.add("name", expectedName);
-    formData.add("city", expectedCity);
-    final Response response = target("marathon").request().post(Entity.form(formData));
+    formData.add("RichDescription", expectedRichDescription);
+    formData.add("Field", expectedField);
+    formData.add("Price", Integer.toString(expectedPrice));
+    final Response response = target("program").request().post(Entity.form(formData));
     int responseStatus = response.getStatus();
 
     //Assert
@@ -41,41 +48,53 @@ public class ProgramRestTest extends JerseyTest {
   }
 
   @Test
-  public void createMarathonReturnsExpectedObject() {
+  public void createProgramReturnsExpectedObject() {
     // Arrange
-    Long expectedId = 9999L;
-    String expectedName = "Test Marathon";
-    String expectedCity = "New Jersey";
+    Integer expectedId = 1005;
+    String expectedName = "Cuisine coréenne";
+    String expectedRichDescription = "Le Pays du matin calme se situe à la confluence entre la Chine et le Japon. Dans ce contexte spécifique, la cuisine coréenne, si elle semble plonger ses racines dans les traditions culinaires de ses voisins, se particularise par les divers ingrédients tels que l'ail, le piment rouge, la sauce de soja, le gingembre et les graines et huile de sésame.";
+    String expectedField= "Gatronomie";
+    Integer expectedPrice= 150;
 
     // Act
     MultivaluedMap<String, String> formData = new MultivaluedHashMap<>();
-    formData.add("id", expectedId.toString());
+    formData.add("id", Integer.toString(expectedId));
     formData.add("name", expectedName);
-    formData.add("city", expectedCity);
-    final Response response = target("marathon").request().post(Entity.form(formData));
-    Marathon actualMarathon = response.readEntity(Marathon.class);
-    String actualName = actualMarathon.getName();
-    Long actualId = actualMarathon.getId();
-    String actualCity = actualMarathon.getCity();
+    formData.add("RichDescription", expectedRichDescription);
+    formData.add("Field", expectedField);
+    formData.add("Price", Integer.toString(expectedPrice));
+    final Response response = target("program").request().post(Entity.form(formData));
+    Program actualProgram = response.readEntity(Program.class);
+    String actualName = actualProgram.getName();
+    Integer actualId = actualProgram.getId();
+    String actualrichDescription = actualProgram.getRichDescription();
+    String actuelField = actualProgram.getField();
+    Integer actualPrice = actualProgram.getPrice();
 
     //Assert
     assertEquals(expectedId, actualId);
     assertEquals(expectedName, actualName);
-    assertEquals(expectedCity, actualCity);
+    assertEquals(expectedField, actuelField);
+    assertEquals(expectedPrice, actualPrice);
+    assertEquals(expectedRichDescription, actualrichDescription);
   }
 
   @Test
-  public void createIncompleteMarathonReturnsErrorCode() {
+  public void createIncompleteProgramReturnsErrorCode() {
     // Arrange
-    String expectedName = "Test Marathon";
-    String expectedCity = "New Jersey";
+    String expectedName = "Cuisine coréenne";
+    String expectedRichDescription = "Le Pays du matin calme se situe à la confluence entre la Chine et le Japon. Dans ce contexte spécifique, la cuisine coréenne, si elle semble plonger ses racines dans les traditions culinaires de ses voisins, se particularise par les divers ingrédients tels que l'ail, le piment rouge, la sauce de soja, le gingembre et les graines et huile de sésame.";
+    String expectedField= "Gatronomie";
+    Integer expectedPrice= 150;
     int expectedStatus = 400;
 
     // Act
     MultivaluedMap<String, String> formData = new MultivaluedHashMap<>();
     formData.add("name", expectedName);
-    formData.add("city", expectedCity);
-    final Response response = target("marathon").request().post(Entity.form(formData));
+    formData.add("RichDescription", expectedRichDescription);
+    formData.add("Field", expectedField);
+    formData.add("Price", Integer.toString(expectedPrice));
+    final Response response = target("program").request().post(Entity.form(formData));
     int responseStatus = response.getStatus();
 
     //Assert
@@ -87,7 +106,7 @@ public class ProgramRestTest extends JerseyTest {
     return new ResourceConfig() {
       {
         register(new ServiceBinder());
-        register(MarathonRest.class);
+        register(ProgramResource.class);
       }
     };
   }
