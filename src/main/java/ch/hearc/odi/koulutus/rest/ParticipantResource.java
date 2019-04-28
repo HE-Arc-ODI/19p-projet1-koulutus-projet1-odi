@@ -35,7 +35,7 @@ public class ParticipantResource {
         }
     }
 
-    @POST
+    /*@POST
     @Path("{programId}/course/{courseId}/participant/{participantId}")
     public void registerParticipantToCourse(@PathParam("programId") Integer programId,
         @PathParam("courseId") Integer courseId,
@@ -49,11 +49,12 @@ public class ParticipantResource {
             ex.printStackTrace();
             throw new WebApplicationException("Error with Participant while registering");
         }
-    }
+    }*/
 
     /*
   DELET : DELET PARTICIPANT FROM MARATHON
    */
+    /*
     @DELETE
     @Path("{programId}/course/{courseId}/participant/{participantId}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -67,7 +68,7 @@ public class ParticipantResource {
             throw new NotFoundException("The program does not exist");
         }
 
-    }
+    }*/
 
     @PUT
     public Participant updateParticipant(@FormParam("participantId") Integer participantId,

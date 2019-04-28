@@ -123,21 +123,16 @@ public class PersistenceService {
    *
    * @return a list
    */
-  public ArrayList<Course> getCoursesByProgramId(Integer programId) throws ProgramException {
+
+  public List<Course> getCoursesByProgramId(Integer programId) throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
-    TypedQuery<Course> query = entityManager
-        .createQuery("SELECT c from Course c where c.program.id = :programId", Course.class);
-
-    List<Course> courses = query.setParameter("programId", programId).getResultList();
-
-    if (courses == null) {
+    Program program = getProgramById(programId);
+    if (program == null){
       throw new ProgramException("Program " + programId + " was not found");
     }
-    entityManager.getTransaction().commit();
     entityManager.close();
-
-    return (ArrayList<Course>) courses;
+    return program.getCourses();
   }
 
   /**
@@ -145,7 +140,7 @@ public class PersistenceService {
    *
    * @return a course
    */
-  public Course getCourseByIdProgramId(Integer programId, Integer courseId)
+  /*public Course getCourseByIdProgramId(Integer programId, Integer courseId)
       throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
@@ -166,14 +161,31 @@ public class PersistenceService {
     entityManager.close();
 
     return courses;
-  }
+  }*/
 
   /**
    * Create a new Course and persist
    *
    * @return the course object created
    */
-  public Course createAndPersistCourse(Integer programId, Integer quarter, Integer year,
+  public Course createAndPersistCourse(Integer programId, Course courseToAdd) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Course course = courseToAdd;
+    Program program = getProgramById(programId);
+
+    if(program != null){
+      program.addCourse(course);
+      entityManager.persist(course);
+      entityManager.getTransaction().commit();
+      entityManager.close();
+    }else{
+      throw new ProgramException("Program " + programId + " was not found");
+    }
+
+    return course;
+  }
+  /*public Course createAndPersistCourse(Integer programId, Integer quarter, Integer year,
       Integer maxNumberOfParticipants) throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
@@ -190,7 +202,7 @@ public class PersistenceService {
     }
 
     return courses;
-  }
+  }*/
 
   /**
    * Return all existing participants
@@ -248,7 +260,7 @@ public class PersistenceService {
    *
    * @return the session object created
    */
-  public Session createAndPersistSession(Integer programId, Integer courseId, Date startDateTime,
+  /*public Session createAndPersistSession(Integer programId, Integer courseId, Date startDateTime,
       Date endDateTime,
       Double price, String room) throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -286,12 +298,12 @@ public class PersistenceService {
     } else {
       throw new ProgramException("Course or participant not found");
     }
-  }
+  }*/
 
   /**
    * unregister a participant to a course
    */
-  public void unregisterParticipantToCourse(Integer programId, Integer courseId,
+  /*public void unregisterParticipantToCourse(Integer programId, Integer courseId,
       Integer participantId)
       throws ProgramException, ParticipantException {
 
@@ -311,7 +323,7 @@ public class PersistenceService {
     entityManager.getTransaction().commit();
     entityManager.close();
 
-  }
+  }*/
 
   /**
    * Delete a course Swagger : delete a course for a given program
@@ -431,8 +443,8 @@ public class PersistenceService {
   public Session updateSession(Integer programId, Integer courseId, Integer sessionId,
       Date startDateTime, Date endDateTime, Double price,String room) {
     Program program = getProgramById(programId);
-    Course c = (Course) program.getCourses(courseId);
-    Session s = (Session) c.getSessions(sessionId);
+    Course c = (Course) program.getCourses();
+    Session s = (Session) c.getSessions();
     s.setEndDateTime(endDateTime);
     s.setStartDateTime(startDateTime);
     s.setPrice(price);
@@ -456,7 +468,7 @@ public class PersistenceService {
   public Course addParticipantToCourse(Integer participantId, Integer courseId, Integer programId)
       throws ParticipantException {
     Program program = this.getProgramById(programId);
-    Course course = (Course) program.getCourses(courseId);
+    Course course = (Course) program.getCourses();
     Participant participant = this.getParticipantByID(participantId);
 
     return null;

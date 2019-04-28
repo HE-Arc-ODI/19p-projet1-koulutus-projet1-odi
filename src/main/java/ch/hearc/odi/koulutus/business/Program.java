@@ -91,9 +91,9 @@ public class Program implements Serializable {
         this.price = price;
     }
 
-    @XmlElement
-    @Transient
-    public List<Course> getCourses(Integer courseId) { return courses; }
+    @OneToMany(targetEntity = Course.class, fetch = FetchType.EAGER)
+    //@JoinColumn(name = "courses")
+    public List<Course> getCourses() { return courses; }
 
     public void setCourses(List<Course> courses) {
         this.courses = courses;
@@ -117,7 +117,7 @@ public class Program implements Serializable {
     }
 
     public void update(Program newProgram) {
-        this.setCourses(newProgram.getCourses(newProgram.id));
+        this.setCourses(newProgram.getCourses());
         this.setField(newProgram.getField());
         this.setName(newProgram.getName());
         this.setPrice(newProgram.getPrice());

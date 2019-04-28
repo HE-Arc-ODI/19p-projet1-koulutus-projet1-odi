@@ -20,18 +20,45 @@ import org.hibernate.annotations.GenericGenerator;
 @XmlRootElement(name = "Course")
 public class Course extends Session implements Serializable {
   private Integer id;
-  private Integer quarter;
   private Integer year;
   private Integer maxNumberOfParticipants;
 
+  public enum QuarterEnum {
+    num_1(Integer.valueOf(1)),
+    num_2(Integer.valueOf(2)),
+    num_3(Integer.valueOf(3)),
+    num_4(Integer.valueOf(4));
+    private Integer quarterEnum;
+    QuarterEnum(Integer quarterEnum){
 
-  enum status {
-    OPEN,
-    CONFIRMED,
-    CANCELLED
+      this.quarterEnum = quarterEnum;
+    }
+    public String toString() {return super.toString();}
   }
+  private QuarterEnum quarter;
+
+  public enum StatusEnum{
+    OPEN("OPEN"),
+    CONFIRMED("CONFIRMED"),
+    CANCELED("CANCELED");
+    private  String statusEnum;
+    StatusEnum(String statusEnum){
+      this.statusEnum = statusEnum;
+    }
+    public String toString(){
+      return super.toString();
+    }
+  }
+  private StatusEnum status;
+
   private List<Session> sessions;
 
+  public Course(){
+    this.sessions = new ArrayList<>();
+    this.status = StatusEnum.OPEN;
+  }
+
+  /*
   public Course(Integer quarter, Integer year, Integer maxNumberOfParticipants,
       Enum status) {
     sessions = new ArrayList<>();
@@ -50,7 +77,7 @@ public class Course extends Session implements Serializable {
 
     this(quarter, year, maxNumberOfParticipants);
     this.id = id;
-  }
+  }*/
 
   @Id
   @GeneratedValue(generator = "increment")
@@ -60,10 +87,10 @@ public class Course extends Session implements Serializable {
   }
 
   @OneToMany(targetEntity = Session.class, fetch = FetchType.EAGER)
-  @JoinColumn(name = "session")
+  @JoinColumn(name = "sessions")
   @OrderColumn(name = "order_session")
-  public List<Session> getSessions(Integer sessionId) {
-    return this.getSessions(sessionId);
+  public List<Session> getSessions() {
+    return this.getSessions();
   }
 
   public void setSessions(List<Session> sessions) {
@@ -90,11 +117,11 @@ public class Course extends Session implements Serializable {
     this.id = id;
   }
 
-  public Integer getQuarter() {
-    return quarter;
+  public QuarterEnum getQuarter() {
+    return this.quarter;
   }
 
-  public void setQuarter(Integer quarter) {
+  public void setQuarter(QuarterEnum quarter) {
     this.quarter = quarter;
   }
 

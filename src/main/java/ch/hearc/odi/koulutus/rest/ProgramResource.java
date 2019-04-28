@@ -13,6 +13,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
+import java.util.List;
 
 @Path("program")
 @Produces(MediaType.APPLICATION_JSON)
@@ -70,7 +71,7 @@ public class ProgramResource {
 
   @GET
   @Path("{programId}/course")
-  public ArrayList<Course> getAllCourseFromProgram(@PathParam("programId") Integer programId) {
+  public List<Course> getAllCourseFromProgram(@PathParam("programId") Integer programId) {
     try {
       return persistenceService.getCoursesByProgramId(programId);
     } catch (ProgramException ex) {
@@ -80,21 +81,18 @@ public class ProgramResource {
   }
 
   @POST
-  @Path("{courseId}")
-  public Course addCourseToProgram(@PathParam("courseId") Integer courseId,
-      @FormParam("quarter") Integer quarter,
-      @FormParam("year") Integer year,
-      @FormParam("maxNumberOfParticipants") Integer maxNumberOfParticipants) {
-    try {
-      return persistenceService
-          .createAndPersistCourse(courseId, quarter, year, maxNumberOfParticipants);
-    } catch (ProgramException e) {
-      e.printStackTrace();
-      throw new NotFoundException("The course does not exist");
-    }
+  @Path("{programId}/course")
+  @Consumes(MediaType.APPLICATION_JSON)
+  public Course addCourseToProgram(@PathParam("programId") Integer programId, Course courseToAdd){
+      try {
+          return persistenceService.createAndPersistCourse(programId, courseToAdd);
+      } catch (ProgramException e) {
+          e.printStackTrace();
+          throw new NotFoundException("The course does not exist");
+      }
   }
 
-  @GET
+  /*@GET
   @Path("{programId}/course/{courseId}")
   public Course courseByIdFromGivenProgram(@PathParam("programId") Integer programId,
       @PathParam("courseId") Integer courseId) {
@@ -144,7 +142,7 @@ public class ProgramResource {
     return persistenceService.getSessionByCourseAndProgramId(programId, courseId);
   }
 
-  @POST
+  /*@POST
   @Path("{programId}/course/{courseId}/session")
   public void addSessionToCourseAndProg(@PathParam("programId") Integer programId,
       @PathParam("courseId") Integer courseId,
@@ -159,7 +157,7 @@ public class ProgramResource {
       e.printStackTrace();
       throw new NotFoundException("The course does not exist");
     }
-  }
+  }*/
 
   @GET
   @Path("{programId}/course/{courseId}/session/{sessionId}")
@@ -171,7 +169,7 @@ public class ProgramResource {
   /**
    * delete a session by id for a given course and program
    */
-  @DELETE
+  /*@DELETE
   @Path("{programId}/course/{courseId}/session/{sessionId}")
   public void deleteSessionByIdFromCourseIdAndProgId(@PathParam("programId") Integer programId,
                                                      @PathParam("courseId") Integer courseId,
@@ -190,7 +188,7 @@ public class ProgramResource {
         }
       }
     }
-  }
+  }*/
   @Path("{programId}/course/{courseId}/session/{sessionId}")
   @PUT
   public Session updateSession(@PathParam("programId") Integer programId, @FormParam("courseId") Integer courseId,
