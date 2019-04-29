@@ -140,7 +140,7 @@ public class ProgramResource {
 
   /*********************SESSION****************************************************************/
 
-  /*@GET
+  @GET
   @Path("{programId}/course/{courseId}/session")
   public ArrayList<Session> getAllSessionForGivenCourseAndProg(
       @PathParam("programId") Integer programId, @PathParam("courseId") Integer courseId) {
@@ -148,16 +148,14 @@ public class ProgramResource {
   }
 
   @POST
+  @Consumes(MediaType.APPLICATION_JSON)
   @Path("{programId}/course/{courseId}/session")
-  public void addSessionToCourseAndProg(@PathParam("programId") Integer programId,
+  public Session addSessionToCourseAndProg(@PathParam("programId") Integer programId,
       @PathParam("courseId") Integer courseId,
-      @FormParam("startDateTime") Date startDateTime,
-      @FormParam("endDateTime") Date endDateTime,
-      @FormParam("price") Double price,
-      @FormParam("room") String room) {
+      Session sessionToAdd) {
     try {
-      persistenceService
-          .createAndPersistSession(programId, courseId, startDateTime, endDateTime, price, room);
+      return persistenceService
+          .createAndPersistSession(programId, courseId, sessionToAdd);
     } catch (ProgramException e) {
       e.printStackTrace();
       throw new NotFoundException("The course does not exist");

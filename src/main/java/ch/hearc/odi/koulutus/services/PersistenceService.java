@@ -269,14 +269,12 @@ public class PersistenceService {
    *
    * @return the session object created
    */
-  public Session createAndPersistSession(Integer programId, Integer courseId, Date startDateTime,
-      Date endDateTime,
-      Double price, String room) throws ProgramException {
+  public Session createAndPersistSession(Integer programId, Integer courseId, Session sessionToAdd) throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Course courseFromBD = this.getCourseByIdProgramId(programId, courseId);
 
-    Session session = new Session(startDateTime, endDateTime, price, room);
+    Session session = sessionToAdd;
 
     if (courseFromBD != null) {
       courseFromBD.addSessions(session);
