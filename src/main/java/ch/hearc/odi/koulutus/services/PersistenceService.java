@@ -403,15 +403,19 @@ public class PersistenceService {
 
   public Session updateSession(Integer programId, Integer courseId, Integer sessionId,
       Date startDateTime, Date endDateTime, Double price,String room) {
-    Program program = getProgramById(programId);
-    Course c = (Course) program.getCourses(courseId);
-    Session s = (Session) c.getSessions(sessionId);
-    s.setEndDateTime(endDateTime);
-    s.setStartDateTime(startDateTime);
-    s.setPrice(price);
-    s.setRoom(room);
-    return s;
+    try {
+      return modifySession(programId, courseId, sessionId, startDateTime, endDateTime, price, room);
+    }catch(RollbackException ex){
+      logger.info("Program "+ programId + "Course " + courseId + "Session " + sessionId + ""
+          + "That start at " + startDateTime + " and end at " + endDateTime +" that cost "+ price
+      + " in " + room +"not located");
+      throw new RollbackException("Program "+ programId + "Course " + courseId + "Session " + sessionId + ""
+          + "That start at " + startDateTime + " and end at " + endDateTime +" that cost "+ price
+          + " in " + room +"not located");
+    }
+
   }
+
 
   public Participant updateParticipant(Integer participantId, String firstName, String lastName, String birthday)
       throws  ParticipantException {
@@ -581,6 +585,19 @@ private Program createNewProgram(String name, String richDescription, String fie
     course.update(course);
     entityManager.getTransaction().commit();
     return course;
+  }
+
+
+  private Session modifySession(Integer programId, Integer courseId, Integer sessionId,
+      Date startDateTime, Date endDateTime, Double price, String room) {
+    Program program = getProgramById(programId);
+    Course c = (Course) program.getCourses(courseId);
+    Session s = (Session) c.getSessions(sessionId);
+    s.setEndDateTime(endDateTime);
+    s.setStartDateTime(startDateTime);
+    s.setPrice(price);
+    s.setRoom(room);
+    return s;
   }
 }
 
