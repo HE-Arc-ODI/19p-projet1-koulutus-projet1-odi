@@ -16,35 +16,35 @@ Il vous faudra configurer un serveur Tomcat en localhost pour lancer le projet.
 Notre projet fonctionne grâce aux requêtes Jaxrs(PUT, GET, POST) ces requêtes sont définies dans postman à des fins de tests. 
 
 - Créer un programme 
-POST ..
+>POST ..
 - Lister les programmes 
-GET ..
+>GET ..
 - Lister les participants
-GET..
+>GET..
 - Ajouter un nouveau participant 
-POST..
+>POST..
 - Récupérer les détails d'un participant
-GET..
+>GET..
 - Supprimer un participant
-DELET..
+>DELET..
 - Modifier les détails d'un participant
-PUT
+>PUT
 - Lister les courses auxquelles est enregistré le participant
-GET 
+>GET 
 - Lister toutes les sessions pour un programme et une course donnée 
-GET
+>GET
 - Créer une session pour un programme et une course donnée
-POST
+>POST
 - Récupérer tout les participants d'une course donnée
-GET 
+>GET 
 - Enregistrer un participant à une course
-POST
+>POST
 - Récupérer les détails d'une session par rapport à une course et un programme donnés
-GET
+>GET
 - Supprimer une session par rapport à une course et un programme donnés
-DELET
+>DELET
 - Modifier une session existante 
-PUT
+>PUT
 
 ## Fait avec
 >Présentation des technologies/outils utilisés
