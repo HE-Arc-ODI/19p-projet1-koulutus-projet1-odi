@@ -76,9 +76,9 @@ public class PersistenceService {
     try {
     return searchProgramById(programId);
     } catch(RollbackException ex){
-      logger.info("Program "+programId);
+      logger.info("Program "+programId +  " not located");
       throw new RollbackException(
-          "Program "+programId );
+          "Program "+programId +  " not located");
     }
   }
 
@@ -116,9 +116,9 @@ public class PersistenceService {
     try {
       return searchAndUpdateProgram(programId, newProgram);
     } catch(RollbackException ex) {
-      logger.info("Program " + programId + " "+newProgram );
+      logger.info("Program " + programId + " "+newProgram +" not located");
       throw new RollbackException(
-          "Program " + programId + " "+newProgram);
+          "Program " + programId + " "+newProgram + " not located");
     }
     }
 
@@ -547,18 +547,6 @@ private Program createNewProgram(String name, String richDescription, String fie
     entityManager.close();
 
     return (ArrayList<Participant>) participant;
-  }
-
-  private Participant addParticipant(String firstName, String lastName, String birthdate) {
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    entityManager.getTransaction().begin();
-    Participant participant = new Participant(firstName, lastName, birthdate);
-    entityManager.persist(participant);
-
-    entityManager.getTransaction().commit();
-    entityManager.close();
-
-    return participant;
   }
 }
 
