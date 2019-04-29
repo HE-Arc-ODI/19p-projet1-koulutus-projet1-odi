@@ -10,7 +10,7 @@ Koulutus (apprendre en Finnois) est une api pour la gestion de formations contin
 
 ### Serveur Tomcat
 Il vous faudra configurer un serveur Tomcat en localhost pour lancer le projet.
-> 'collectionmultimedia:war exploded' artifact
+> '19p-projet1:war exploded' artifact
 
 ### Les requêtes Jaxrs
 Notre projet fonctionne grâce aux requêtes Jaxrs(PUT, GET, POST) ces requêtes sont définies dans postman à des fins de tests. 
