@@ -96,6 +96,7 @@ public class PersistenceService {
 
     if (program == null) {
       throw new ProgramException("Program with id " + programId + " not found");
+
     }
     entityManager.remove(program);
     entityManager.getTransaction().commit();
@@ -112,16 +113,16 @@ public class PersistenceService {
    * @throws ProgramException if the id does not match any existing customer
    */
   public Program updateProgram(Integer programId, Program newProgram) throws ProgramException {
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    entityManager.getTransaction().begin();
-    Program program = entityManager.find(Program.class, programId);
-    if (program == null) {
-      throw new ProgramException("Program with id " + programId + " not found");
+    try {
+      return searchAndUpdateProgram(programId, newProgram);
+    } catch(RollbackException ex) {
+      logger.info("Program " + programId + " "+newProgram +" not located");
+      throw new RollbackException(
+          "Program " + programId + " "+newProgram + " not located");
     }
-    program.update(newProgram);
-    entityManager.getTransaction().commit();
-    return program;
-  }
+    }
+
+
 
   /**
    * Return all existing courses for a given program id * Swagger : Get all course for a given
@@ -490,6 +491,19 @@ private Program createNewProgram(String name, String richDescription, String fie
     Program program = entityManager.find(Program.class, programId);
     entityManager.getTransaction().commit();
     entityManager.close();
+    return program;
+  }
+
+  private Program searchAndUpdateProgram(Integer programId, Program newProgram)
+      throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = entityManager.find(Program.class, programId);
+    if (program == null) {
+      throw new ProgramException("Program with id " + programId + " not found");
+    }
+    program.update(newProgram);
+    entityManager.getTransaction().commit();
     return program;
   }
 }
