@@ -449,14 +449,13 @@ public class PersistenceService {
   }
 
   public Session updateSession(Integer programId, Integer courseId, Integer sessionId,
-      Date startDateTime, Date endDateTime, Double price,String room) {
+      Session sessionUpdated) throws ProgramException {
     Program program = getProgramById(programId);
-    Course c = (Course) program.getCourses();
-    Session s = (Session) c.getSessions();
-    s.setEndDateTime(endDateTime);
-    s.setStartDateTime(startDateTime);
-    s.setPrice(price);
-    s.setRoom(room);
+    Course c = getCourseByIdProgramId(programId, courseId);
+    if (program == null){
+        throw new ProgramException("Program or Course ID not found");
+    }
+    Session s = sessionUpdated;
     return s;
   }
 
