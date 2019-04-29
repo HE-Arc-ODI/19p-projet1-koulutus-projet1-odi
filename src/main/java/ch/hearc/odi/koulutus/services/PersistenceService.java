@@ -131,21 +131,15 @@ public class PersistenceService {
    * @return a list
    */
   public ArrayList<Course> getCoursesByProgramId(Integer programId) throws ProgramException {
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    entityManager.getTransaction().begin();
-    TypedQuery<Course> query = entityManager
-        .createQuery("SELECT c from Course c where c.program.id = :programId", Course.class);
-
-    List<Course> courses = query.setParameter("programId", programId).getResultList();
-
-    if (courses == null) {
-      throw new ProgramException("Program " + programId + " was not found");
+    try {
+      return searchCoursesByProgramId(programId);
+    } catch(RollbackException ex){
+      logger.info("Program "+programId +  " not located");
+      throw new RollbackException(
+          "Program "+programId +  " not located");
     }
-    entityManager.getTransaction().commit();
-    entityManager.close();
+    }
 
-    return (ArrayList<Course>) courses;
-  }
 
   /**
    * Return course by ID and program id
@@ -153,27 +147,17 @@ public class PersistenceService {
    * @return a course
    */
   public Course getCourseByIdProgramId(Integer programId, Integer courseId)
-      throws ProgramException {
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    entityManager.getTransaction().begin();
-
-    TypedQuery<Course> query = entityManager.createQuery(
-        "SELECT c from Course c where c.program.id = :programId and c.id = :courseId",
-        Course.class);
-
-    Course courses = query.setParameter("programId", programId)
-        .setParameter("programId", courseId)
-        .getSingleResult();
-
-    if (courses == null) {
-      throw new ProgramException("Program or course not found");
+      throws RollbackException {
+    try {
+      return searchCourseByIdProgramById(programId, courseId);
+    } catch(RollbackException | ProgramException ex){
+      logger.info("Program "+programId + " Course " + courseId+ " not located");
+      throw new RollbackException(
+          "Program "+programId + " Course " + courseId+ " not located");
+    }
     }
 
-    entityManager.getTransaction().commit();
-    entityManager.close();
 
-    return courses;
-  }
 
   /**
    * Create a new Course and persist
@@ -181,7 +165,7 @@ public class PersistenceService {
    * @return the course object created
    */
   public Course createAndPersistCourse(Integer programId, Integer quarter, Integer year,
-      Integer maxNumberOfParticipants) throws ProgramException {
+      Integer maxNumberOfParticipants) throws RollbackException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Course courses = new Course(quarter, year, maxNumberOfParticipants);
@@ -505,6 +489,45 @@ private Program createNewProgram(String name, String richDescription, String fie
     program.update(newProgram);
     entityManager.getTransaction().commit();
     return program;
+  }
+
+  private ArrayList<Course> searchCoursesByProgramId(Integer programId) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    TypedQuery<Course> query = entityManager
+        .createQuery("SELECT c from Course c where c.program.id = :programId", Course.class);
+
+    List<Course> courses = query.setParameter("programId", programId).getResultList();
+
+    if (courses == null) {
+      throw new ProgramException("Program " + programId + " was not found");
+    }
+    entityManager.getTransaction().commit();
+    entityManager.close();
+
+    return (ArrayList<Course>) courses;
+  }
+  private Course searchCourseByIdProgramById(Integer programId, Integer courseId)
+      throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+
+    TypedQuery<Course> query = entityManager.createQuery(
+        "SELECT c from Course c where c.program.id = :programId and c.id = :courseId",
+        Course.class);
+
+    Course courses = query.setParameter("programId", programId)
+        .setParameter("programId", courseId)
+        .getSingleResult();
+
+    if (courses == null) {
+      throw new ProgramException("Program or course not found");
+    }
+
+    entityManager.getTransaction().commit();
+    entityManager.close();
+
+    return courses;
   }
 }
 
