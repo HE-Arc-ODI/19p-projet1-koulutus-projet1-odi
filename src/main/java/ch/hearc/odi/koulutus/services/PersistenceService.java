@@ -186,17 +186,7 @@ public class PersistenceService {
     return searchParticipant();
   }
 
-  private ArrayList<Participant> searchParticipant() {
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    entityManager.getTransaction().begin();
-    List<Participant> participant = entityManager.createQuery("from Participant", Participant.class)
-        .getResultList();
 
-    entityManager.getTransaction().commit();
-    entityManager.close();
-
-    return (ArrayList<Participant>) participant;
-  }
 
   /**
    * Create a new Participant and persist
@@ -545,6 +535,18 @@ private Program createNewProgram(String name, String richDescription, String fie
     }
 
     return courses;
+  }
+
+  private ArrayList<Participant> searchParticipant() {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    List<Participant> participant = entityManager.createQuery("from Participant", Participant.class)
+        .getResultList();
+
+    entityManager.getTransaction().commit();
+    entityManager.close();
+
+    return (ArrayList<Participant>) participant;
   }
 }
 
