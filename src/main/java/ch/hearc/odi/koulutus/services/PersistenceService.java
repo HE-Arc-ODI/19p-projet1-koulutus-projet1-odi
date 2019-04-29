@@ -371,12 +371,12 @@ public class PersistenceService {
     return program;
   }
 
-  public Course updateCourse(Integer programId, Integer courseId) {
+  public Course updateCourse(Integer programId, Integer courseId, Course courseUpdated) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Course course = entityManager.find(Course.class, courseId);
 
-    course.update(course);
+    course.update(courseUpdated);
     entityManager.getTransaction().commit();
     return course;
   }

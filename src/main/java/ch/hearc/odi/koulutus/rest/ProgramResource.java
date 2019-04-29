@@ -103,7 +103,7 @@ public class ProgramResource {
       throw new NotFoundException("the program does not exist");
     }
   }
-
+    /*NOT WORKING*/
   @DELETE
   @Path("{programId}/course/{courseId}")
   public Course deleteCourseFromGivenProgram(@PathParam("programId") Integer programId,
@@ -117,10 +117,11 @@ public class ProgramResource {
   }
 
   @PUT
+  @Consumes(MediaType.APPLICATION_JSON)
   @Path("{programId}/course/{courseId}")
-  public void updateCourse(@PathParam("programId") Integer programId,
-      @PathParam("courseId") Integer courseId) {
-    persistenceService.updateCourse(programId, courseId);
+  public Course updateCourse(@PathParam("programId") Integer programId,
+      @PathParam("courseId") Integer courseId, Course courseUpdated) {
+    return persistenceService.updateCourse(programId, courseId, courseUpdated);
   }
   /*
   @GET
