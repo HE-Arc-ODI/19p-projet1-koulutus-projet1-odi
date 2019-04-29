@@ -36,40 +36,13 @@ public class ParticipantResource {
         }
     }
 
-    @POST
-    @Path("{programId}/course/{courseId}/participant/{participantId}")
-    public void registerParticipantToCourse(@PathParam("programId") Integer programId,
-        @PathParam("courseId") Integer courseId,
-        @PathParam("participantId") Integer participantId) {
-        try {
-            persistenceService.registerParticipantToCourse(programId, courseId, participantId);
-        } catch (ProgramException ex) {
-            ex.printStackTrace();
-            throw new WebApplicationException("Error with Program while registering");
-        } catch (ParticipantException ex) {
-            ex.printStackTrace();
-            throw new WebApplicationException("Error with Participant while registering");
-        }
-    }
+
     /*
     *//*
   DELET : DELET PARTICIPANT FROM MARATHON
    *//*
 
-    @DELETE
-    @Path("{programId}/course/{courseId}/participant/{participantId}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void deleteParticipantFromCourse(@PathParam("programId") Integer programId,
-        @PathParam("courseId") Integer courseId,
-        @PathParam("participantId") Integer participantId) {
-        try {
-            persistenceService.unregisterParticipantToCourse(programId, courseId, participantId);
-        } catch (ProgramException | ParticipantException e) {
-            e.printStackTrace();
-            throw new NotFoundException("The program does not exist");
-        }
 
-    }
 
     @PUT
     public Participant updateParticipant(@FormParam("participantId") Integer participantId,
@@ -101,15 +74,5 @@ public class ParticipantResource {
     }
 
 
-    @Path("{programId}/course/{courseId}/participant/{participantId}")
-    @POST
-    public void addParticipantCourse(@PathParam("programId") Integer programId,
-        @PathParam("courseId") Integer courseId,
-        @PathParam("participantId") Integer participantId) {
-        try {
-            persistenceService.addParticipantToCourse(participantId, courseId, programId);
-        } catch (ParticipantException e) {
-            e.printStackTrace();
-        }
-    }*/
+    */
 }

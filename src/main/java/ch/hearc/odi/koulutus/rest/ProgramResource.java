@@ -4,6 +4,7 @@ package ch.hearc.odi.koulutus.rest;
 import ch.hearc.odi.koulutus.business.Course;
 import ch.hearc.odi.koulutus.business.Program;
 import ch.hearc.odi.koulutus.business.Session;
+import ch.hearc.odi.koulutus.exception.ParticipantException;
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import ch.hearc.odi.koulutus.services.PersistenceService;
 
@@ -103,7 +104,7 @@ public class ProgramResource {
       throw new NotFoundException("the program does not exist");
     }
   }
-    /*NOT WORKING*/
+  /*NOT WORKING*/
   @DELETE
   @Path("{programId}/course/{courseId}")
   public Course deleteCourseFromGivenProgram(@PathParam("programId") Integer programId,
@@ -197,4 +198,49 @@ public class ProgramResource {
     return persistenceService.updateSession(programId, courseId, sessionId, startDateTime,endDateTime,price,room);
 
   }*/
+
+    /*********************PARTICIPANT****************************************************************/
+
+    @POST
+    @Path("{programId}/course/{courseId}/participant/{participantId}")
+    public void registerParticipantToCourse(@PathParam("programId") Integer programId,
+                                            @PathParam("courseId") Integer courseId,
+                                            @PathParam("participantId") Integer participantId) {
+        try {
+            persistenceService.registerParticipantToCourse(programId, courseId, participantId);
+        } catch (ProgramException ex) {
+            ex.printStackTrace();
+            throw new WebApplicationException("Error with Program while registering");
+        } catch (ParticipantException ex) {
+            ex.printStackTrace();
+            throw new WebApplicationException("Error with Participant while registering");
+        }
+    }
+
+    @DELETE
+    @Path("{programId}/course/{courseId}/participant/{participantId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void deleteParticipantFromCourse(@PathParam("programId") Integer programId,
+                                            @PathParam("courseId") Integer courseId,
+                                            @PathParam("participantId") Integer participantId) {
+        try {
+            persistenceService.unregisterParticipantToCourse(programId, courseId, participantId);
+        } catch (ProgramException | ParticipantException e) {
+            e.printStackTrace();
+            throw new NotFoundException("The program does not exist");
+        }
+
+    }
+
+    @Path("{programId}/course/{courseId}/participant/{participantId}")
+    @POST
+    public void addParticipantCourse(@PathParam("programId") Integer programId,
+                                     @PathParam("courseId") Integer courseId,
+                                     @PathParam("participantId") Integer participantId) {
+        try {
+            persistenceService.addParticipantToCourse(participantId, courseId, programId);
+        } catch (ParticipantException e) {
+            e.printStackTrace();
+        }
+    }
 }
