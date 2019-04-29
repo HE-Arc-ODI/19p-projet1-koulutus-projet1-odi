@@ -139,7 +139,7 @@ public class ProgramResource {
   }
 
   /*********************SESSION****************************************************************/
-
+  /*NOT TESTED*/
   @GET
   @Path("{programId}/course/{courseId}/session")
   public ArrayList<Session> getAllSessionForGivenCourseAndProg(
@@ -172,7 +172,7 @@ public class ProgramResource {
   /**
    * delete a session by id for a given course and program
    */
-  /*@DELETE
+  @DELETE
   @Path("{programId}/course/{courseId}/session/{sessionId}")
   public void deleteSessionByIdFromCourseIdAndProgId(@PathParam("programId") Integer programId,
                                                      @PathParam("courseId") Integer courseId,
@@ -181,7 +181,7 @@ public class ProgramResource {
     Program p = getProgramById(programId);
     if (p != null) {
       if (courseId != null) {
-        Course c = (Course) p.getCourses(courseId);
+        Course c = p.getCourse(courseId);
         if (c != null) {
           if (sessionId != null) {
             c.removeSession(sessionId);
