@@ -194,17 +194,17 @@ public class PersistenceService {
    * @return the course object created
    */
   public Participant createAndPersistParticipant(String firstName, String lastName,
-      String birthdate) {
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    entityManager.getTransaction().begin();
-    Participant participant = new Participant(firstName, lastName, birthdate);
-    entityManager.persist(participant);
+      String birthdate) throws RollbackException {
+    try{
+      return addParticipant(firstName, lastName, birthdate);
+    }catch(RollbackException ex) {
+      logger.fatal("This participant already exist");
+      throw new RollbackException(
+          "This participant already exist");
+    }
+    }
 
-    entityManager.getTransaction().commit();
-    entityManager.close();
 
-    return participant;
-  }
 
   /**
    * Find a participant by his id
@@ -547,6 +547,18 @@ private Program createNewProgram(String name, String richDescription, String fie
     entityManager.close();
 
     return (ArrayList<Participant>) participant;
+  }
+
+  private Participant addParticipant(String firstName, String lastName, String birthdate) {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Participant participant = new Participant(firstName, lastName, birthdate);
+    entityManager.persist(participant);
+
+    entityManager.getTransaction().commit();
+    entityManager.close();
+
+    return participant;
   }
 }
 
