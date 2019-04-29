@@ -341,8 +341,9 @@ public class PersistenceService {
       throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
-    Course course = entityManager.find(Course.class, courseId);
+    //Course course = entityManager.find(Course.class, courseId);
 
+    Course course = getCourseByIdProgramId(programId,courseId);
     if (course == null) {
       throw new ProgramException("Program with id " + courseId + " not found");
     }
