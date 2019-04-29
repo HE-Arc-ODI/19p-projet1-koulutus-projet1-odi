@@ -116,9 +116,9 @@ public class PersistenceService {
     try {
       return searchAndUpdateProgram(programId, newProgram);
     } catch(RollbackException ex) {
-      logger.info("Program " + programId + " "+newProgram +" not located");
+      logger.info("Program " + programId + " "+newProgram );
       throw new RollbackException(
-          "Program " + programId + " "+newProgram + " not located");
+          "Program " + programId + " "+newProgram);
     }
     }
 
