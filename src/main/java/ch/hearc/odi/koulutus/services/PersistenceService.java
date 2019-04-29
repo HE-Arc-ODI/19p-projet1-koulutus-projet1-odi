@@ -67,32 +67,15 @@ public class PersistenceService {
     }
 
 
-  private Program createNewProgram(String name, String richDescription, String field,
-      Integer price) {
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    entityManager.getTransaction().begin();
-    Program program = new Program(name, richDescription, field, price);
-    entityManager.persist(program);
-    entityManager.getTransaction().commit();
-    entityManager.close();
-
-    return program;
-  }
-
-
   /**
    * Return program by ID Swagger : View the details of a training program
    *
    * @return a program
    */
   public Program getProgramById(Integer programId) {
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    entityManager.getTransaction().begin();
-    Program program = entityManager.find(Program.class, programId);
-    entityManager.getTransaction().commit();
-    entityManager.close();
-    return program;
+    return SearchProgramById(programId);
   }
+
 
   /**
    * Delete a program Swagger : Delete an existing training program
@@ -478,9 +461,31 @@ public class PersistenceService {
 
     return null;
   }
+
+
+
+/****************************PRIVATE method ***********************************/
+private Program createNewProgram(String name, String richDescription, String field,
+    Integer price) {
+  EntityManager entityManager = entityManagerFactory.createEntityManager();
+  entityManager.getTransaction().begin();
+  Program program = new Program(name, richDescription, field, price);
+  entityManager.persist(program);
+  entityManager.getTransaction().commit();
+  entityManager.close();
+
+  return program;
 }
 
 
-
+  private Program SearchProgramById(Integer programId) {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Program program = entityManager.find(Program.class, programId);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    return program;
+  }
+}
 
 
