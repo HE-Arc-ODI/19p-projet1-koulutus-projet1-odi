@@ -76,9 +76,9 @@ public class PersistenceService {
     try {
     return searchProgramById(programId);
     } catch(RollbackException ex){
-      logger.info("Program "+programId +  " not located");
+      logger.info("Program "+programId);
       throw new RollbackException(
-          "Program "+programId +  " not located");
+          "Program "+programId );
     }
   }
 
