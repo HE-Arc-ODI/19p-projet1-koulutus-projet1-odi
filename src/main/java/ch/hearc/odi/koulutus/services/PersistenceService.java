@@ -335,24 +335,29 @@ public class PersistenceService {
   /**
    * Delete a course Swagger : delete a course for a given program
    */
-  public Course deleteCourseFromProgram(Integer courseId, Integer programId)
+  public void deleteCourseFromProgram(Integer courseId, Integer programId)
       throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
+    //Program program = getProgramById(programId);
     //Course course = entityManager.find(Course.class, courseId);
+    //Course course = program.getCourse(courseId);
+    TypedQuery<Course> query = entityManager.createQuery(
+            "SELECT c from Course c where c.program.id = :programId and c.id = :courseId",
+            Course.class);
 
-    Course course = getCourseByIdProgramId(programId,courseId);
+    Course course = query.setParameter("programId", programId)
+            .setParameter("courseId", courseId)
+            .getSingleResult();
+    //Course course = getCourseByIdProgramId(programId,courseId);
     if (course == null) {
       throw new ProgramException("Program with id " + courseId + " not found");
     }
     entityManager.remove(course);
     entityManager.getTransaction().commit();
     entityManager.close();
-    return course;
+    //return course;
   }
-
-
-
 
   @Override
   public void finalize() throws Throwable {

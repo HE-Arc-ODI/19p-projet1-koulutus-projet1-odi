@@ -15,32 +15,16 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "Course")
 @XmlRootElement(name = "Course")
-public class Course extends Session implements Serializable {
+public class Course implements Serializable {
     private Integer id;
-
-    public enum QuarterEnum {
-        num_1(Integer.valueOf(1)),
-        num_2(Integer.valueOf(2)),
-        num_3(Integer.valueOf(3)),
-        num_4(Integer.valueOf(4));
-        private Integer quarterEnum;
-
-        QuarterEnum(Integer quarterEnum) {
-
-            this.quarterEnum = quarterEnum;
-        }
-
-        public String toString() {
-            return super.toString();
-        }
-    }
-
     @JsonProperty("quarter")
     private Integer quarter;
     private Integer year;
     private Integer maxNumberOfParticipants;
     private Program program;
-
+    @JsonProperty("status")
+    private String status;
+    private List<Session> sessions;
     public enum StatusEnum {
         OPEN("OPEN"),
         CONFIRMED("CONFIRMED"),
@@ -54,12 +38,21 @@ public class Course extends Session implements Serializable {
         public String toString() {
             return super.toString();
         }
+    }public enum QuarterEnum {
+        num_1(Integer.valueOf(1)),
+        num_2(Integer.valueOf(2)),
+        num_3(Integer.valueOf(3)),
+        num_4(Integer.valueOf(4));
+        private Integer quarterEnum;
+
+        QuarterEnum(Integer quarterEnum) {
+
+            this.quarterEnum = quarterEnum;
+        }
+        public String toString() {
+            return super.toString();
+        }
     }
-
-    @JsonProperty("status")
-    private String status;
-
-    private List<Session> sessions;
 
     public Course() {
         this.status = StatusEnum.OPEN.toString();

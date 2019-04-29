@@ -108,10 +108,10 @@ public class ProgramResource {
   /*NOT WORKING*/
   @DELETE
   @Path("{programId}/course/{courseId}")
-  public Course deleteCourseFromGivenProgram(@PathParam("programId") Integer programId,
+  public void deleteCourseFromGivenProgram(@PathParam("programId") Integer programId,
       @PathParam("courseId") Integer courseId) {
     try {
-      return persistenceService.deleteCourseFromProgram(courseId, programId);
+      persistenceService.deleteCourseFromProgram(courseId, programId);
     } catch (ProgramException e) {
       e.printStackTrace();
       throw new NotFoundException("the course does not exist");
@@ -140,7 +140,7 @@ public class ProgramResource {
 
   /*********************SESSION****************************************************************/
   /*NOT TESTED*/
-  @GET
+  /*@GET
   @Path("{programId}/course/{courseId}/session")
   public ArrayList<Session> getAllSessionForGivenCourseAndProg(
       @PathParam("programId") Integer programId, @PathParam("courseId") Integer courseId) {
@@ -172,7 +172,7 @@ public class ProgramResource {
   /**
    * delete a session by id for a given course and program
    */
-  @DELETE
+  /*@DELETE
   @Path("{programId}/course/{courseId}/session/{sessionId}")
   public void deleteSessionByIdFromCourseIdAndProgId(@PathParam("programId") Integer programId,
                                                      @PathParam("courseId") Integer courseId,
@@ -207,7 +207,7 @@ public class ProgramResource {
 
     /*********************PARTICIPANT****************************************************************/
 
-    @POST
+    /*@POST
     @Path("{programId}/course/{courseId}/participant/{participantId}")
     public void registerParticipantToCourse(@PathParam("programId") Integer programId,
                                             @PathParam("courseId") Integer courseId,
@@ -248,5 +248,5 @@ public class ProgramResource {
         } catch (ParticipantException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }
