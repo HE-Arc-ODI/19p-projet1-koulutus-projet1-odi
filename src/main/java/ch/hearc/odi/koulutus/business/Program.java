@@ -2,6 +2,8 @@ package ch.hearc.odi.koulutus.business;
 
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.util.ArrayList;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -91,10 +93,18 @@ public class Program implements Serializable {
         this.price = price;
     }
 
-    @XmlElement
-    @Transient
-    public List<Course> getCourses(Integer courseId) { return courses; }
+    @OneToMany(targetEntity = Course.class, fetch = FetchType.EAGER)
+    //@JsonBackReference
+    public List<Course> getCourses() { return courses; }
 
+    public Course getCourse(Integer id){
+        for (Course course : courses){
+            if(course.getId() == id){
+                return course;
+            }
+        }
+        return null;
+    }
     public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
@@ -117,7 +127,7 @@ public class Program implements Serializable {
     }
 
     public void update(Program newProgram) {
-        this.setCourses(newProgram.getCourses(courseId));
+        this.setCourses(newProgram.getCourses());
         this.setField(newProgram.getField());
         this.setName(newProgram.getName());
         this.setPrice(newProgram.getPrice());

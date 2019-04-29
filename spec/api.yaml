@@ -584,9 +584,7 @@ components:
           example: "Cuisine coréenne"
         richDescription:
           type: string
-          example: "
-          Le Pays du matin calme se situe à la confluence entre la Chine et le Japon. Dans ce contexte spécifique, la cuisine coréenne, si elle semble plonger ses racines dans les traditions culinaires de ses voisins, se particularise par les divers ingrédients tels que l'ail, le piment rouge, la sauce de soja, le gingembre et les graines et huile de sésame.
-          "
+          example: "Le Pays du matin calme se situe à la confluence entre la Chine et le Japon. Dans ce contexte spécifique, la cuisine coréenne, si elle semble plonger ses racines dans les traditions culinaires de ses voisins..."
         field:
           type: string
           example: "Gatronomie"
