@@ -74,7 +74,7 @@ public class PersistenceService {
    */
   public Program getProgramById(Integer programId) throws RollbackException {
     try {
-    return SearchProgramById(programId);
+    return searchProgramById(programId);
     } catch(RollbackException ex){
       logger.info("Program "+programId +  " not located");
       throw new RollbackException(
@@ -485,7 +485,7 @@ private Program createNewProgram(String name, String richDescription, String fie
 }
 
 
-  private Program SearchProgramById(Integer programId) {
+  private Program searchProgramById(Integer programId) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = entityManager.find(Program.class, programId);
