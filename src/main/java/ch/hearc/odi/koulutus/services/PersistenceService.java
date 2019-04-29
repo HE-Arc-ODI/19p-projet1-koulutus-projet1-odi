@@ -72,8 +72,14 @@ public class PersistenceService {
    *
    * @return a program
    */
-  public Program getProgramById(Integer programId) {
+  public Program getProgramById(Integer programId) throws RollbackException {
+    try {
     return SearchProgramById(programId);
+    } catch(RollbackException ex){
+      logger.info("Program "+programId +  " not located");
+      throw new RollbackException(
+          "Program "+programId +  " not located");
+    }
   }
 
 
