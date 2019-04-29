@@ -14,6 +14,8 @@ import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -23,6 +25,8 @@ public class PersistenceService {
 
   private EntityManagerFactory entityManagerFactory;
 
+
+  private static final Logger logger = LogManager.getLogger(PersistenceService.class.getName());
 
   public PersistenceService() {
     //  an EntityManagerFactory is set up once for an application
@@ -58,6 +62,8 @@ public class PersistenceService {
     entityManager.persist(program);
     entityManager.getTransaction().commit();
     entityManager.close();
+    logger.info("Program "+program.getName()+ " " + program.getRichDescription() + " " +
+        program.getField() + " "+ program.getPrice() + " created");
     return program;
   }
 
