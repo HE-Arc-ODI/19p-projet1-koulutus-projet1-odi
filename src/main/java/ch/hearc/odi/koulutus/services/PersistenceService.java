@@ -11,6 +11,8 @@ import ch.hearc.odi.koulutus.business.Program;
 import ch.hearc.odi.koulutus.business.Session;
 import ch.hearc.odi.koulutus.exception.ParticipantException;
 import ch.hearc.odi.koulutus.exception.ProgramException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,11 +20,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.Part;
 
 public class PersistenceService {
 
   private EntityManagerFactory entityManagerFactory;
-
 
   public PersistenceService() {
     //  an EntityManagerFactory is set up once for an application
@@ -140,7 +142,7 @@ public class PersistenceService {
    *
    * @return a course
    */
-  /*public Course getCourseByIdProgramId(Integer programId, Integer courseId)
+  public Course getCourseByIdProgramId(Integer programId, Integer courseId)
       throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
@@ -161,7 +163,7 @@ public class PersistenceService {
     entityManager.close();
 
     return courses;
-  }*/
+  }
 
   /**
    * Create a new Course and persist
@@ -227,16 +229,20 @@ public class PersistenceService {
    * @return the course object created
    */
   public Participant createAndPersistParticipant(String firstName, String lastName,
-      String birthdate) {
+      String birthdate) throws ParticipantException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
-    Participant participant = new Participant(firstName, lastName, birthdate);
-    entityManager.persist(participant);
+    try {
+        Participant participant = new Participant(firstName, lastName, birthdate);
+        entityManager.persist(participant);
 
-    entityManager.getTransaction().commit();
-    entityManager.close();
+        entityManager.getTransaction().commit();
+        entityManager.close();
 
-    return participant;
+        return participant;
+    } catch (Exception e){
+        throw new ParticipantException("An error occured while creating the participant");
+    }
   }
 
   /**
@@ -260,7 +266,7 @@ public class PersistenceService {
    *
    * @return the session object created
    */
-  /*public Session createAndPersistSession(Integer programId, Integer courseId, Date startDateTime,
+  public Session createAndPersistSession(Integer programId, Integer courseId, Date startDateTime,
       Date endDateTime,
       Double price, String room) throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -298,12 +304,12 @@ public class PersistenceService {
     } else {
       throw new ProgramException("Course or participant not found");
     }
-  }*/
+  }
 
   /**
    * unregister a participant to a course
    */
-  /*public void unregisterParticipantToCourse(Integer programId, Integer courseId,
+  public void unregisterParticipantToCourse(Integer programId, Integer courseId,
       Integer participantId)
       throws ProgramException, ParticipantException {
 
@@ -323,7 +329,7 @@ public class PersistenceService {
     entityManager.getTransaction().commit();
     entityManager.close();
 
-  }*/
+  }
 
   /**
    * Delete a course Swagger : delete a course for a given program
@@ -440,7 +446,7 @@ public class PersistenceService {
 
   }
 
-  /*public Session updateSession(Integer programId, Integer courseId, Integer sessionId,
+  public Session updateSession(Integer programId, Integer courseId, Integer sessionId,
       Date startDateTime, Date endDateTime, Double price,String room) {
     Program program = getProgramById(programId);
     Course c = (Course) program.getCourses();
@@ -450,15 +456,15 @@ public class PersistenceService {
     s.setPrice(price);
     s.setRoom(room);
     return s;
-  }*/
+  }
 
   public Participant updateParticipant(Integer participantId, String firstName, String lastName, String birthday)
-      throws  ParticipantException {
+          throws ParticipantException, ParseException {
     Participant p = this.getParticipantByID(participantId);
     if (p != null) {
       p.setFirstName(firstName);
       p.setLastName(lastName);
-      p.setBirthdate(birthday);
+      p.setBirthdate(new SimpleDateFormat("dd.mm.yyyy").parse(birthday));
       return p;
     } else {
       throw new ParticipantException("unknown Participant: " + participantId);

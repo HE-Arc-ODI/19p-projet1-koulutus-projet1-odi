@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -35,7 +36,8 @@ public class Course extends Session implements Serializable {
     }
     public String toString() {return super.toString();}
   }
-  private QuarterEnum quarter;
+  @JsonProperty("quarter")
+  private Integer quarter;
 
   public enum StatusEnum{
     OPEN("OPEN"),
@@ -49,23 +51,24 @@ public class Course extends Session implements Serializable {
       return super.toString();
     }
   }
-  private StatusEnum status;
+  @JsonProperty("status")
+  private String status;
 
   private List<Session> sessions;
 
   public Course(){
     this.sessions = new ArrayList<>();
-    this.status = StatusEnum.OPEN;
+    this.status = StatusEnum.OPEN.toString();
   }
 
-  public Course(QuarterEnum quarter, Integer year, Integer maxNumberOfParticipants,
+  /*public Course(QuarterEnum quarter, Integer year, Integer maxNumberOfParticipants,
       StatusEnum status) {
     this();
     this.quarter = quarter;
     this.year = year;
     this.maxNumberOfParticipants = maxNumberOfParticipants;
     this.status = status;
-  }
+  }*/
 
   @Id
   @GeneratedValue(generator = "increment")
@@ -75,10 +78,10 @@ public class Course extends Session implements Serializable {
   }
 
   @OneToMany(targetEntity = Session.class, fetch = FetchType.EAGER)
-  @JoinColumn(name = "sessions")
+  //@JoinColumn(name = "sessions")
   //@OrderColumn(name = "order_session")
   public List<Session> getSessions() {
-    return this.getSessions();
+    return sessions;
   }
 
   public void setSessions(List<Session> sessions) {
@@ -105,11 +108,11 @@ public class Course extends Session implements Serializable {
     this.id = id;
   }
 
-  public QuarterEnum getQuarter() {
+  public Integer getQuarter() {
     return this.quarter;
   }
 
-  public void setQuarter(QuarterEnum quarter) {
+  public void setQuarter(Integer quarter) {
     this.quarter = quarter;
   }
 
@@ -135,6 +138,5 @@ public class Course extends Session implements Serializable {
     this.setQuarter(newCourse.getQuarter());
     //this.setSessions(newCourse.getSessions(sessionId));
     this.setYear(newCourse.getYear());
-
   }
 }

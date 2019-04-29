@@ -135,14 +135,14 @@ public class ProgramResource {
 
   /*********************SESSION****************************************************************/
 
-  @GET
+  /*@GET
   @Path("{programId}/course/{courseId}/session")
   public ArrayList<Session> getAllSessionForGivenCourseAndProg(
       @PathParam("programId") Integer programId, @PathParam("courseId") Integer courseId) {
     return persistenceService.getSessionByCourseAndProgramId(programId, courseId);
   }
 
-  /*@POST
+  @POST
   @Path("{programId}/course/{courseId}/session")
   public void addSessionToCourseAndProg(@PathParam("programId") Integer programId,
       @PathParam("courseId") Integer courseId,
@@ -157,7 +157,7 @@ public class ProgramResource {
       e.printStackTrace();
       throw new NotFoundException("The course does not exist");
     }
-  }*/
+  }
 
   @GET
   @Path("{programId}/course/{courseId}/session/{sessionId}")

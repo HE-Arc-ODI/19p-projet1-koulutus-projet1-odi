@@ -3,6 +3,8 @@ package ch.hearc.odi.koulutus.business;
 
 import ch.hearc.odi.koulutus.exception.ParticipantException;
 import ch.hearc.odi.koulutus.exception.ProgramException;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,21 +23,28 @@ public class Participant {
   private Integer id;
   private String firstName;
   private String lastName;
-  private String birthdate;
+  private Date birthdate;
   private List<Course> courses;
 
   public Participant() {
     courses = new ArrayList<>();
   }
 
-  public Participant(String firstName, String lastName, String birthdate) {
+  public Participant(String firstName, String lastName, Date birthdate) {
     this();
     this.firstName = firstName;
     this.lastName = lastName;
     this.birthdate = birthdate;
   }
 
-  public Participant(Integer id, String firstName, String lastName, String birthdate) {
+  public Participant(String firstName, String lastName, String birthdate) throws Exception {
+    this();
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.birthdate = new SimpleDateFormat("dd.MM.yyyy").parse(birthdate);
+  }
+
+  public Participant(Integer id, String firstName, String lastName, Date birthdate) {
     this(firstName, lastName, birthdate);
     this.id = id;
   }
@@ -71,11 +80,11 @@ public class Participant {
     this.lastName = lastName;
   }
 
-  public String getBirthdate() {
+  public Date getBirthdate() {
     return birthdate;
   }
 
-  public void setBirthdate(String birthdate) {
+  public void setBirthdate(Date birthdate) {
     this.birthdate = birthdate;
   }
 
