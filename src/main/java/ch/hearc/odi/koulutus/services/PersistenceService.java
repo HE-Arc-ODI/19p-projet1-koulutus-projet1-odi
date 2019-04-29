@@ -146,22 +146,25 @@ public class PersistenceService {
       throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
-    TypedQuery<Course> query = entityManager.createQuery(
+    //Program program = getProgramById(programId);
+    Course course = getProgramById(programId).getCourse(courseId);
+    /*TypedQuery<Course> query = entityManager.createQuery(
             "SELECT c from Course c where c.program.id = :programId and c.id = :courseId",
             Course.class);
 
     Course courses = query.setParameter("programId", programId)
         .setParameter("courseId", courseId)
         .getSingleResult();
-
-    if (courses == null) {
+*/
+    if (course == null) {
       throw new ProgramException("Program or course not found");
     }
 
     entityManager.getTransaction().commit();
     entityManager.close();
 
-    return courses;
+    return course;
+
   }
 
   /**
@@ -172,7 +175,7 @@ public class PersistenceService {
   public Course createAndPersistCourse(Integer programId, Course courseToAdd) throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
-    Course course = courseToAdd;
+    Course course = new Course(courseToAdd.getQuarter().toString(),courseToAdd.getYear(),courseToAdd.getMaxNumberOfParticipants());
     Program program = getProgramById(programId);
 
     if(program != null){

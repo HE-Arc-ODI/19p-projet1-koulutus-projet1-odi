@@ -104,7 +104,7 @@ public class ProgramResource {
     }
   }
 
-  /*@DELETE
+  @DELETE
   @Path("{programId}/course/{courseId}")
   public Course deleteCourseFromGivenProgram(@PathParam("programId") Integer programId,
       @PathParam("courseId") Integer courseId) {

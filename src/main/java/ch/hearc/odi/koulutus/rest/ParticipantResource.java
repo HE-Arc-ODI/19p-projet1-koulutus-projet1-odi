@@ -20,7 +20,7 @@ public class ParticipantResource {
     @Inject
     PersistenceService persistenceService;
 
-    /*@GET
+    @GET
     public ArrayList<Participant> getAllParticipant() {
         return persistenceService.getParticipant();
     }
@@ -51,7 +51,7 @@ public class ParticipantResource {
             throw new WebApplicationException("Error with Participant while registering");
         }
     }
-
+    /*
     *//*
   DELET : DELET PARTICIPANT FROM MARATHON
    *//*

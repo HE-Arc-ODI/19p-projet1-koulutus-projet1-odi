@@ -66,14 +66,19 @@ public class Course extends Session implements Serializable {
         this.sessions = new ArrayList<>();
     }
 
-  /*public Course(QuarterEnum quarter, Integer year, Integer maxNumberOfParticipants,
+    public Course(String quarter, Integer year, Integer maxNumberOfParticipants){
+        this();
+        this.quarter = Integer.valueOf(quarter);
+        this.year = year;
+        this.maxNumberOfParticipants = maxNumberOfParticipants;
+    }
+
+    public Course(Integer id, String quarter, Integer year, Integer maxNumberOfParticipants,
       StatusEnum status) {
-    this();
-    this.quarter = quarter;
-    this.year = year;
-    this.maxNumberOfParticipants = maxNumberOfParticipants;
-    this.status = status;
-  }*/
+        this(quarter,year,maxNumberOfParticipants);
+        this.status = status.toString();
+        this.id = id;
+    }
 
     @Id
     @GeneratedValue(generator = "increment")
@@ -86,7 +91,7 @@ public class Course extends Session implements Serializable {
         int i;
         for (i = 0; i < sessions.size(); i++) {
             Session session = sessions.get(i);
-            if (session.getId() == (id.longValue())) {
+            if (session.getId() == id) {
                 return i;
             }
         }
