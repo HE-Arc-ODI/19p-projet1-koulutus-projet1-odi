@@ -166,22 +166,16 @@ public class PersistenceService {
    */
   public Course createAndPersistCourse(Integer programId, Integer quarter, Integer year,
       Integer maxNumberOfParticipants) throws RollbackException {
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    entityManager.getTransaction().begin();
-    Course courses = new Course(quarter, year, maxNumberOfParticipants);
-    Program program = getProgramById(programId);
-
-    if (program != null) {
-      program.addCourse(courses);
-      entityManager.persist(courses);
-      entityManager.getTransaction().commit();
-      entityManager.close();
-    } else {
-      throw new ProgramException("Program " + programId + " was not found");
+    try{
+      return addCourse(programId, quarter, year, maxNumberOfParticipants);
+    }catch(RollbackException ex) {
+      logger.fatal("This Course is already in your Program");
+      throw new RollbackException(
+          "This Course is already in your Program");
+    }
     }
 
-    return courses;
-  }
+
 
   /**
    * Return all existing participants
@@ -189,6 +183,10 @@ public class PersistenceService {
    * @return a list
    */
   public ArrayList<Participant> getParticipant() {
+    return searchParticipant();
+  }
+
+  private ArrayList<Participant> searchParticipant() {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     List<Participant> participant = entityManager.createQuery("from Participant", Participant.class)
@@ -526,6 +524,25 @@ private Program createNewProgram(String name, String richDescription, String fie
 
     entityManager.getTransaction().commit();
     entityManager.close();
+
+    return courses;
+  }
+
+  private Course addCourse(Integer programId, Integer quarter, Integer year,
+      Integer maxNumberOfParticipants) {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Course courses = new Course(quarter, year, maxNumberOfParticipants);
+    Program program = getProgramById(programId);
+
+    if (program != null) {
+      program.addCourse(courses);
+      entityManager.persist(courses);
+      entityManager.getTransaction().commit();
+      entityManager.close();
+    } else {
+      throw new RollbackException("Program " + programId + " was not found");
+    }
 
     return courses;
   }
