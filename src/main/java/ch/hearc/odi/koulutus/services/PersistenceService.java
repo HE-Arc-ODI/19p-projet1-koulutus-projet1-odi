@@ -178,15 +178,23 @@ public class PersistenceService {
    * @return the course object created
    */
 
-  public Course createAndPersistCourse(Integer programId, Integer quarter, Integer year,
-      Integer maxNumberOfParticipants) throws RollbackException {
-    try {
-      return addCourse(programId, quarter, year, maxNumberOfParticipants);
-    } catch (RollbackException ex) {
-      logger.fatal("This Course is already in your Program");
-      throw new RollbackException(
-          "This Course is already in your Program");
+  public Course createAndPersistCourse(Integer programId, Course courseToAdd) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Course course = new Course(courseToAdd.getQuarter().toString(),courseToAdd.getYear(),courseToAdd.getMaxNumberOfParticipants());
+    Program program = getProgramById(programId);
+
+    if(program != null){
+      program.addCourse(course);
+      entityManager.persist(course);
+      entityManager.merge(program);
+      entityManager.getTransaction().commit();
+      entityManager.close();
+    }else{
+      throw new ProgramException("Program " + programId + " was not found");
     }
+
+    return course;
   }
 
 
@@ -549,8 +557,25 @@ public class PersistenceService {
 
     return courses;
   }
+  public List<Participant> getParticipantsFromGivenCourse(Integer programId, Integer courseId) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    /*TypedQuery<Participant> query = entityManager
+        .createQuery("SELECT p from Participant p where p.course.id = :participantId", Participant.class);
 
-  private Course addCourse(Integer programId, Integer quarter, Integer year,
+    List<Participant> participants = query.setParameter("participantId", participantId).getResultList();
+
+    if (participants == null) {
+      throw new ProgramException("Participant " + participantId + " was not found");
+    }*/
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    List <Participant> participants= new ArrayList<Participant>();
+    return participants;
+
+  }
+
+  /*private Course addCourse(Integer programId, Integer quarter, Integer year,
       Integer maxNumberOfParticipants) throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
@@ -560,6 +585,7 @@ public class PersistenceService {
 
     if (program != null) {
       program.addCourse(course);
+
       entityManager.persist(course);
       entityManager.merge(program);
       entityManager.getTransaction().commit();
@@ -569,7 +595,7 @@ public class PersistenceService {
     }
 
     return course;
-  }
+  }*/
 
   /*public Course createAndPersistCourse(Integer programId, Integer quarter, Integer year,
       Integer maxNumberOfParticipants) throws ProgramException {
@@ -643,19 +669,3 @@ public class PersistenceService {
     return course;
   }
 }
-
-/*
-  private Session modifySession(Integer programId, Integer courseId, Integer sessionId,
-      Date startDateTime, Date endDateTime, Double price, String room) {
-    Program program = getProgramById(programId);
-    Course c = (Course) program.getCourses(courseId);
-    Session s = (Session) c.getSessions(sessionId);
-    s.setEndDateTime(endDateTime);
-    s.setStartDateTime(startDateTime);
-    s.setPrice(price);
-    s.setRoom(room);
-    return s;
-  }
-}
-
-

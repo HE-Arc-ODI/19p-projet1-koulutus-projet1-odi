@@ -1,0 +1,805 @@
+{
+	"info": {
+		"_postman_id": "674af6b7-e4ed-4ec6-8832-c16874b87f3b",
+		"name": "Koulutus projet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Program",
+			"item": [
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Cuisine coréenne\",\r\n  \"richDescription\": \"Le Pays du matin calme se situe à la confluence entre la Chine et le Japon. Dans ce contexte spécifique, la cuisine coréenne, si elle semble plonger ses racines dans les traditions culinaires de ses voisins...\",\r\n  \"field\": \"Gatronomie\",\r\n  \"price\": 150\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"program"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"program",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program?name=bb&richDescription=rich description&field=fieeeeeld&price=22",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Cuisine italienne\",\r\n  \"richDescription\": \" mama mia\",\r\n  \"price\": 150\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"program"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program?name=aa&richDescription=richDescription&field=field&price=11",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"program"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"program",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program?name=aa&richDescription=richDescription&field=field&price=11 Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"program"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 2,\n    \"name\": \"Cuisine italienne\",\n    \"richDescription\": \" mama mia\",\n    \"field\" : \"this is an updated field\",\n    \"price\": 150,\n    \"courses\": []\n}"
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"program",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program?name=aa&richDescription=richDescription&field=field&price=11 Copy Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"program"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Course",
+			"item": [
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"program",
+								"2",
+								"course"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"quarter\": 2,\r\n  \"year\": 2018,\r\n  \"maxNumberOfParticipants\": 5\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"program",
+								"2",
+								"course"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course/1",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"program",
+								"2",
+								"course",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course/1",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"quarter\": \"3\",\r\n  \"year\": 2018,\r\n  \"maxNumberOfParticipants\": 5\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"program",
+								"2",
+								"course",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course/1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"program",
+								"2",
+								"course",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Session",
+			"item": [
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course/session",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course/session",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"program",
+								"2",
+								"course",
+								"session"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course/session",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"startDateTime\": \"20.10.2018 17:00\",\r\n    \"endDateTime\": \"20.10.2018 19:00\",\r\n    \"price\": 45,\r\n    \"room\": \"B14\"\r\n  }\r\n]"
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course/session",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"program",
+								"2",
+								"course",
+								"session"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course/session/1",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course/session/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"program",
+								"2",
+								"course",
+								"session",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course/session/1",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course/session/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"program",
+								"2",
+								"course",
+								"session",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course/session/1",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"startDateTime\": \"20.10.2018 17:00\",\r\n  \"endDateTime\": \"20.10.2018 19:00\",\r\n  \"price\": 45,\r\n  \"room\": \"B14\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course/session/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"program",
+								"2",
+								"course",
+								"session",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Participant",
+			"item": [
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/participant",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/participant",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"participant"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/participant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"Sabrina\",\r\n  \"lastName\": \"Hillow\",\r\n  \"birthdate\": \"15.03.1997\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/participant",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"participant"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/participant/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/participant/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"participant",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/participant/1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/participant/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"participant",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/participant/1",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"Sabrina\",\r\n  \"lastName\": \"Hillow\",\r\n  \"birthdate\": \"15.03.1997\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/participant/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"participant",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/participant/1/summary",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"Sabrina\",\r\n  \"lastName\": \"Hillow\",\r\n  \"birthdate\": \"15.03.1997\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/participant/1/summary",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"participant",
+								"1",
+								"summary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course/participant/1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"quarter\": \"2\",\r\n  \"year\": 2018,\r\n  \"maxNumberOfParticipants\": 5\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8085/19p_projet1_war_exploded/koulutus/api/program/2/course/participant/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"19p_projet1_war_exploded",
+								"koulutus",
+								"api",
+								"program",
+								"2",
+								"course",
+								"participant",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
