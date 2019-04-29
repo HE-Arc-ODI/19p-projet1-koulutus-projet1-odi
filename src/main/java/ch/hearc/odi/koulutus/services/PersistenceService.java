@@ -146,13 +146,12 @@ public class PersistenceService {
       throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
-
     TypedQuery<Course> query = entityManager.createQuery(
-        "SELECT c from Course c where c.program.id = :programId and c.id = :courseId",
-        Course.class);
+            "SELECT c from Course c where c.program.id = :programId and c.id = :courseId",
+            Course.class);
 
     Course courses = query.setParameter("programId", programId)
-        .setParameter("programId", courseId)
+        .setParameter("courseId", courseId)
         .getSingleResult();
 
     if (courses == null) {
@@ -179,6 +178,7 @@ public class PersistenceService {
     if(program != null){
       program.addCourse(course);
       entityManager.persist(course);
+      entityManager.merge(program);
       entityManager.getTransaction().commit();
       entityManager.close();
     }else{

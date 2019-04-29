@@ -92,7 +92,7 @@ public class ProgramResource {
       }
   }
 
-  /*@GET
+  @GET
   @Path("{programId}/course/{courseId}")
   public Course courseByIdFromGivenProgram(@PathParam("programId") Integer programId,
       @PathParam("courseId") Integer courseId) {
@@ -104,7 +104,7 @@ public class ProgramResource {
     }
   }
 
-  @DELETE
+  /*@DELETE
   @Path("{programId}/course/{courseId}")
   public Course deleteCourseFromGivenProgram(@PathParam("programId") Integer programId,
       @PathParam("courseId") Integer courseId) {

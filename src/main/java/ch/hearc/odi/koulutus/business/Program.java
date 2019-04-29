@@ -2,6 +2,8 @@ package ch.hearc.odi.koulutus.business;
 
 import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.util.ArrayList;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -92,9 +94,17 @@ public class Program implements Serializable {
     }
 
     @OneToMany(targetEntity = Course.class, fetch = FetchType.EAGER)
-    //@JoinColumn(name = "courses")
+    //@JsonBackReference
     public List<Course> getCourses() { return courses; }
 
+    public Course getCourse(Integer id){
+        for (Course course : courses){
+            if(course.getId() == id){
+                return course;
+            }
+        }
+        return null;
+    }
     public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
