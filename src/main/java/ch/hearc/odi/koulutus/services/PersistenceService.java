@@ -14,6 +14,7 @@ import ch.hearc.odi.koulutus.exception.ProgramException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.RollbackException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import javax.persistence.EntityManager;
@@ -55,9 +56,16 @@ public class PersistenceService {
    * @return the program object created
    */
   public Program createAndPersistProgram(String name, String richDescription, String field,
-      Integer price) {
-    return createNewProgram(name, richDescription, field, price);
-  }
+      Integer price) throws RollbackException {
+    try {
+      return createNewProgram(name, richDescription, field, price);
+    } catch(RollbackException ex){
+        logger.fatal("This Program already exists, please enter different details");
+        throw new RollbackException(
+            "This Program already exists, please enter different details");
+      }
+    }
+
 
   private Program createNewProgram(String name, String richDescription, String field,
       Integer price) {
