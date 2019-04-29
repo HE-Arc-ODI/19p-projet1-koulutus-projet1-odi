@@ -56,17 +56,20 @@ public class PersistenceService {
    */
   public Program createAndPersistProgram(String name, String richDescription, String field,
       Integer price) {
+    return createNewProgram(name, richDescription, field, price);
+  }
+
+  private Program createNewProgram(String name, String richDescription, String field,
+      Integer price) {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
     entityManager.getTransaction().begin();
     Program program = new Program(name, richDescription, field, price);
     entityManager.persist(program);
     entityManager.getTransaction().commit();
     entityManager.close();
-    logger.info("Program "+program.getName()+ " " + program.getRichDescription() + " " +
-        program.getField() + " "+ program.getPrice() + " created");
+
     return program;
   }
-
 
 
   /**
