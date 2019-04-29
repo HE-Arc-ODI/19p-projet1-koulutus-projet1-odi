@@ -230,24 +230,15 @@ public class PersistenceService {
   public Session createAndPersistSession(Integer programId, Integer courseId, Date startDateTime,
       Date endDateTime,
       Double price, String room) throws ProgramException {
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    entityManager.getTransaction().begin();
-    Course courseFromBD = this.getCourseByIdProgramId(programId, courseId);
-
-    Session session = new Session(startDateTime, endDateTime, price, room);
-
-    if (courseFromBD != null) {
-      courseFromBD.addSessions(session);
-      entityManager.persist(session);
-      entityManager.merge(courseFromBD);
-      entityManager.getTransaction().commit();
-      entityManager.close();
-    } else {
-      throw new ProgramException("Program or course not found");
+    try{
+      return addSession(programId, courseId, startDateTime, endDateTime, price, room);
+    }catch(RollbackException ex){
+      logger.fatal("This session already exist");
+      throw new RollbackException("This session already exist");
     }
-
-    return session;
   }
+
+
 
   public void registerParticipantToCourse(Integer programId, Integer courseId,
       Integer participantId) throws ProgramException, ParticipantException {
@@ -321,23 +312,26 @@ public class PersistenceService {
 
 
   public Program createAndPersistProgram(Program program) {
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    entityManager.getTransaction().begin();
-    entityManager.persist(program);
-    entityManager.getTransaction().commit();
-    entityManager.close();
-    return program;
+    try{
+      return addProgram(program);
+    }catch(RollbackException ex){
+      logger.fatal("This program already exist");
+      throw new RollbackException("This program already exist");
+    }
   }
+
+
 
   public Course updateCourse(Integer programId, Integer courseId) {
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
-    entityManager.getTransaction().begin();
-    Course course = entityManager.find(Course.class, courseId);
-
-    course.update(course);
-    entityManager.getTransaction().commit();
-    return course;
+    try{
+      return modifyCourse(courseId);
+    }catch(RollbackException ex){
+      logger.info("Program " + programId + " Course " + courseId +"not located");
+      throw new RollbackException("Program " + programId + " Course " + courseId +"not located");
+    }
   }
+
+
 
   public Participant getParticipantFromGivenCourse(Integer participantId) throws ProgramException {
     EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -547,6 +541,46 @@ private Program createNewProgram(String name, String richDescription, String fie
     entityManager.close();
 
     return (ArrayList<Participant>) participant;
+  }
+
+  private Session addSession(Integer programId, Integer courseId, Date startDateTime,
+      Date endDateTime, Double price, String room) throws ProgramException {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Course courseFromBD = this.getCourseByIdProgramId(programId, courseId);
+
+    Session session = new Session(startDateTime, endDateTime, price, room);
+
+    if (courseFromBD != null) {
+      courseFromBD.addSessions(session);
+      entityManager.persist(session);
+      entityManager.merge(courseFromBD);
+      entityManager.getTransaction().commit();
+      entityManager.close();
+    } else {
+      throw new ProgramException("Program or course not found");
+    }
+
+    return session;
+  }
+
+  private Program addProgram(Program program) {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    entityManager.persist(program);
+    entityManager.getTransaction().commit();
+    entityManager.close();
+    return program;
+  }
+
+  private Course modifyCourse(Integer courseId) {
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    entityManager.getTransaction().begin();
+    Course course = entityManager.find(Course.class, courseId);
+
+    course.update(course);
+    entityManager.getTransaction().commit();
+    return course;
   }
 }
 
