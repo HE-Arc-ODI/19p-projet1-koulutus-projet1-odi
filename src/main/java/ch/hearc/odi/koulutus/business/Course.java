@@ -38,7 +38,7 @@ public class Course implements Serializable {
         public String toString() {
             return super.toString();
         }
-    }public enum QuarterEnum {
+    }public enum QuarterEnum {  // FIXME: le vertical spacing est mauvais.  Il faut utiliser le formattage de code.
         num_1(Integer.valueOf(1)),
         num_2(Integer.valueOf(2)),
         num_3(Integer.valueOf(3)),

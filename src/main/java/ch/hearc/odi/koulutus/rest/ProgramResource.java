@@ -48,7 +48,7 @@ public class ProgramResource {
   public void deleteProgramById(@PathParam("programId") Integer programId) {
     try {
       persistenceService.deleteProgram(programId);
-      CacheControl cacheControl = new CacheControl();
+      CacheControl cacheControl = new CacheControl(); // FIXME: quel rapport avec le cachecontrol?
       cacheControl.setMaxAge(86400);
     } catch (ProgramException ex) {
       ex.printStackTrace();
